@@ -16,18 +16,12 @@ namespace oep {
 		void LateUpdate();  
 		void Render();  
 
-		~Application();  //소멸자
+		~Application();  
 
 	private:
 		HWND mHwnd;  
 		HDC mHdc;  
 
-		//float mSpeed;
-
-		//도형(오브젝트)의 좌표
-		//float mX;
-		//float mY;
-
-		GameObject mPlayer;  //위의 정보를 포함하여 생성된 게임 오브젝트
+		GameObject mPlayer;  
 	};
 }
