@@ -5,3 +5,4 @@
 #include <Windows.h>
 
 #include <vector>
+#include <algorithm>  //for_each문 사용을 위한 헤더 파일 추가
