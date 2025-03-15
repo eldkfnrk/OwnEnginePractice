@@ -8,25 +8,21 @@ namespace oep {
 	}
 
 	void GameObject::Update() {
-		const float speed = 100.0f;  //Time을 통해 모든 컴퓨터에서 동일한 결과 값이 나오도록 바꿨으니 도형의 이동 속도를 지정
+		const float speed = 100.0f;
 
 		if (Input::GetKey(eKeyCode::A)) {
-			//mX -= 0.01f;
 			mX -= speed * Time::DeltaTime();
 		}
 
 		if (Input::GetKey(eKeyCode::D)) {
-			//mX += 0.01f;
 			mX += speed * Time::DeltaTime();
 		}
 
 		if (Input::GetKey(eKeyCode::W)) {
-			//mY -= 0.01f;
 			mY -= speed * Time::DeltaTime();
 		}
 
 		if (Input::GetKey(eKeyCode::S)) {
-			//mY += 0.01f;
 			mY += speed * Time::DeltaTime();
 		}
 	}

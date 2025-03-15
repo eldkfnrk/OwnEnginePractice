@@ -113,18 +113,22 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
     
    hInst = hInstance; // 인스턴스 핸들을 전역 변수에 저장합니다.
 
+   //윈도우 해상도
+   const UINT width = 1600;
+   const UINT height = 900;
+
    //핸들은 윈도우 생성과 동시에 생성
    HWND hWnd = CreateWindowW(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW,
-      CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, nullptr, nullptr, hInstance, nullptr);
+      CW_USEDEFAULT, 0, width, height, nullptr, nullptr, hInstance, nullptr);
 
-   application.Initialize(hWnd);  //객체의 초기화 함수 호출(여기서 호출하는 이유는 핸들을 인자로 전달하기 위해서이다.)
+   application.Initialize(hWnd, width, height);  //객체의 초기화 함수 호출(여기서 호출하는 이유는 핸들을 인자로 전달하기 위해서이다.)
 
    if (!hWnd)
    {
       return FALSE;
    }
 
-   ShowWindow(hWnd, nCmdShow);
+   //ShowWindow(hWnd, nCmdShow);
    UpdateWindow(hWnd);
 
    return TRUE;
