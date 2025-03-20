@@ -16,14 +16,20 @@
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)CommonInclude.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)oepApplication.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)oepEntity.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)oepGameObject.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)oepInput.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)oepScene.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)oepSceneManager.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)oepTime.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)oepApplication.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)oepEntity.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)oepGameObject.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)oepInput.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)oepScene.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)oepSceneManager.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)oepTime.cpp" />
   </ItemGroup>
 </Project>

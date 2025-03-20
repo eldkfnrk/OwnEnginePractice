@@ -132,6 +132,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="oepLoadScenes.h" />
+    <ClInclude Include="oepPlayScene.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="oepPlayScene.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

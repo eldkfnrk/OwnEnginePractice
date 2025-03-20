@@ -11,6 +11,11 @@ namespace oep {
 		void LateUpdate();
 		void Render(HDC hdc);
 
+		void SetPosition(float x, float y) {
+			mX = x;
+			mY = y;
+		}
+
 		~GameObject();
 
 	private:

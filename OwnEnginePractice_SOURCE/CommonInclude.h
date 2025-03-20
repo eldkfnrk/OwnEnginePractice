@@ -6,3 +6,5 @@
 
 #include <vector>
 #include <algorithm>  //for_each문 사용을 위한 헤더 파일 추가
+#include <string>  //wstring을 사용하기 위한 헤더 파일 추가
+#include <map>  //map(트리)를 사용하기 위한 헤더 파일 추가

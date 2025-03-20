@@ -9,11 +9,11 @@ namespace oep {
 		None,  //아무것도 안 할 때
 	};
 
-	enum class eKeyCode {  
+	enum class eKeyCode {  //스페이스 바 추가
 		Q, W, E, R, T, Y, U, I, O, P,
 		A, S, D, F, G, H, J, K, L,
 		Z, X, C, V, B, N, M,
-		Left, Right, Up, Down,
+		Left, Right, Up, Down, Space,
 		End,
 	};
 
