@@ -3,48 +3,63 @@
 #include "oepTime.h"
 
 namespace oep {
-	GameObject::GameObject() : mX(0.0f), mY(0.0f) {
+	GameObject::GameObject() {
 
 	}
 
+	void GameObject::Initialize() {
+		for (Component* comp : mComponents) {
+			comp->Initialize();
+		}
+	}
+
 	void GameObject::Update() {
-		const float speed = 100.0f;
+		//const float speed = 100.0f;
 
-		if (Input::GetKey(eKeyCode::A)) {
-			mX -= speed * Time::DeltaTime();
-		}
+		//이런 키 입력에 의한 이동도 다른 컴포넌트에서 동작하게 될 예정이다.
+		//if (Input::GetKey(eKeyCode::A)) {
+		//	mX -= speed * Time::DeltaTime();
+		//}
 
-		if (Input::GetKey(eKeyCode::D)) {
-			mX += speed * Time::DeltaTime();
-		}
+		//if (Input::GetKey(eKeyCode::D)) {
+		//	mX += speed * Time::DeltaTime();
+		//}
 
-		if (Input::GetKey(eKeyCode::W)) {
-			mY -= speed * Time::DeltaTime();
-		}
+		//if (Input::GetKey(eKeyCode::W)) {
+		//	mY -= speed * Time::DeltaTime();
+		//}
 
-		if (Input::GetKey(eKeyCode::S)) {
-			mY += speed * Time::DeltaTime();
-		}
+		//if (Input::GetKey(eKeyCode::S)) {
+		//	mY += speed * Time::DeltaTime();
+		//}
 		
 		//if (Input::GetKeyDown(eKeyCode::Space)) {
 
 		//}
+
+		for (Component* comp : mComponents) {
+			comp->Update();
+		}
 	}
 
 	void GameObject::LateUpdate() {
-		
+		for (Component* comp : mComponents) {
+			comp->LateUpdate();
+		}
 	}
 
 	void GameObject::Render(HDC hdc) {
-		//HBRUSH blueBrush = CreateSolidBrush(RGB(0, 0, 255));
-		HBRUSH randomBrush = CreateSolidBrush(RGB(rand() % 255, rand() % 255, rand()%255));  //색이 랜덤으로 설정되도록 rgb값을 랜덤으로 설정
-		HBRUSH oldBrush = (HBRUSH)SelectObject(hdc, randomBrush);
-		//Rectangle(hdc, 100 + mX, 100 + mY, 200 + mX, 200 + mY);
-		Ellipse(hdc, mX, mY, 100 + mX, 100 + mY);  //시작 주소가 mX, mY여야지 화면을 벗어난 도형이 생기지 않는다.
+		//HBRUSH randomBrush = CreateSolidBrush(RGB(rand() % 255, rand() % 255, rand()%255));
+		//HBRUSH oldBrush = (HBRUSH)SelectObject(hdc, randomBrush);
+		//Ellipse(hdc, mX, mY, 100 + mX, 100 + mY);  
 
-		SelectObject(hdc, oldBrush);
+		//SelectObject(hdc, oldBrush);
 
-		DeleteObject(randomBrush);  //메모리 삭제
+		//DeleteObject(randomBrush);  //메모리 삭제
+
+		for (Component* comp : mComponents) {
+			comp->Render(hdc);
+		}
 	}
 
 	GameObject::~GameObject() {

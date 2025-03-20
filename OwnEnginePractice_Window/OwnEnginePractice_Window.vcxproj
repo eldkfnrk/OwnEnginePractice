@@ -133,9 +133,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="oepLoadScenes.h" />
+    <ClInclude Include="oepPlayer.h" />
     <ClInclude Include="oepPlayScene.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="oepPlayer.cpp" />
     <ClCompile Include="oepPlayScene.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
