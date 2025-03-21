@@ -23,6 +23,13 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)oepSpriteRenderer.cpp">
       <Filter>Component</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)oepMath.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)oepResource.cpp">
+      <Filter>Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)oepResources.cpp">
+      <Filter>Resource</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)CommonInclude.h" />
@@ -48,6 +55,13 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)oepSpriteRenderer.h">
       <Filter>Component</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)oepMath.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)oepResource.h">
+      <Filter>Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)oepResources.h">
+      <Filter>Resource</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Component">
@@ -58,6 +72,9 @@
     </Filter>
     <Filter Include="GameObject">
       <UniqueIdentifier>{6e0e0c76-b738-4aad-8f62-d104379fc09e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource">
+      <UniqueIdentifier>{b497b6bc-8547-435a-9756-3287d3718dff}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

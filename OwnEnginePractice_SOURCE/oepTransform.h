@@ -2,13 +2,14 @@
 #include "oepComponent.h"
 
 namespace oep {
-	struct Pos {  //Transform 컴포넌트가 가지는 위치 좌표(2D 게임이라 2개고 3D 게임이면 z축 값까지 3개를 가지면 된다.)
-		float mX;
-		float mY;
-	};
+	//struct Pos { 
+	//	float mX;
+	//	float mY;
+	//};
 
+	//이제 위에서 정의한 구조체를 대신해서 math 네임스페이스에 정의한 Vector2 구조체를 사용하여 오브젝트의 좌표를 관리할 예정이다.
+	using namespace math;  //해당 네임스페이스를 범위 지정 연산자 없이 사용하기 위한 구문
 
-	//Transform 클래스 - 오브젝트의 위치 정보를 담당하는 컴포넌트
 	class Transform : public Component
 	{
 	public:
@@ -19,23 +20,36 @@ namespace oep {
 		void LateUpdate() override;
 		void Render(HDC hdc) override;
 
-		void SetPos(float x, float y) {
-			mX = x;
-			mY = y;
+		//void SetPos(float x, float y) {
+		//	mX = x;
+		//	mY = y;
+		//}
+
+		void SetPos(Vector2 pos) {
+			mPosition.x = pos.x;
+			mPosition.y = pos.y;
 		}
 
-		float GetX() {
-			return mX;
-		}
+		//float GetX() {
+		//	return mX;
+		//}
 
-		float GetY() {
-			return mY;
+		//float GetY() {
+		//	return mY;
+		//}
+
+		Vector2 GetPosition() {
+			return mPosition;
 		}
 
 		~Transform();
 
 	private:
-		float mX;
-		float mY;
+		//오브젝트 좌표
+		//float mX;
+		//float mY;
+
+		//Vector2 구조체를 사용하여 오브젝트 좌표 관리
+		Vector2 mPosition;
 	};
 }

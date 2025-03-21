@@ -4,7 +4,7 @@
 #include "oepSceneManager.h"
 
 namespace oep {
-	Application::Application() : mHwnd(nullptr), mHdc(nullptr), mWidth(0), mHeight(0), mBackHdc(NULL), mBackBuffer(NULL)/*, mGameObjects{}*/ {  //배열은 이와 같은 방식으로 초기화해준다.
+	Application::Application() : mHwnd(nullptr), mHdc(nullptr), mWidth(0), mHeight(0), mBackHdc(NULL), mBackBuffer(NULL) {
 
 	}
 

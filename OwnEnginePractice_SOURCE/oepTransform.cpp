@@ -1,7 +1,7 @@
 #include "oepTransform.h"
 
 namespace oep {
-	Transform::Transform() : mX(0.0f), mY(0.0f)
+	Transform::Transform()
 	{
 
 	}

@@ -8,6 +8,10 @@
 
 oep::Application application;
 
+//GDIPLUS를 사용하기 위한 초기 세팅
+ULONG_PTR gpToken;  //ULONG_PTR -> long long 포인터
+Gdiplus::GdiplusStartupInput gpsi;  //GdiplusStartupInput - Gdiplus를 사용하기 위한 구조체
+
 //폴더 이름에 최대한 한글이 들어가지 않게 해야 한다.(파일 경로에 한글이 들어가게 되면 문제가 발생할 확률이 높기 때문에)
 
 #define MAX_LOADSTRING 100
@@ -65,6 +69,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
             application.Run();
         }
     }
+
+    Gdiplus::GdiplusShutdown(gpToken);  //gpToken 메모리 해제
 
     return (int) msg.wParam;
 }
@@ -131,6 +137,8 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 
    //ShowWindow(hWnd, nCmdShow);
    UpdateWindow(hWnd);
+
+   Gdiplus::GdiplusStartup(&gpToken, &gpsi, NULL);  //Gdiplus를 활성화
 
    //load Scenes -> 프로그램이 실행됨과 동시에 게임에 모든 씬들을 SceneManager에 추가
    oep::LoadScenes();

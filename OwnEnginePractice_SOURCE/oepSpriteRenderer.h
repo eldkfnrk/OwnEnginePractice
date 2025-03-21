@@ -2,7 +2,6 @@
 #include "oepComponent.h"
 
 namespace oep {
-	//SpriteRenderer 클래스 - 오브젝트 렌더(화면 상에 그림을 그려주는 역할)를 담당하는 컴포넌트
 	class SpriteRenderer : public Component
 	{
 	public:
@@ -13,9 +12,13 @@ namespace oep {
 		void LateUpdate() override;
 		void Render(HDC hdc) override;
 
+		void ImageLoad(const std::wstring& path);  //인자로 경로를 받아 해당 경로에 있는 이미지 파일을 불러오는 함수
+
 		~SpriteRenderer();
 
 	private:
-
+		Gdiplus::Image* mImage;  //GDIPLUS는 기존 GDI에 추가적인 기능을 가진 것으로 Image는 이미지 파일을 저장하는 자료형이다.
+		UINT mWidth;  //이미지의 너비
+		UINT mHeight;  //이미지의 높이
 	};
 }
