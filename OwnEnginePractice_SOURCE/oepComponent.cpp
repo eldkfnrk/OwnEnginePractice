@@ -1,7 +1,7 @@
 #include "oepComponent.h"
 
 namespace oep {
-	Component::Component()
+	Component::Component() : mOwner(nullptr)
 	{
 	}
 

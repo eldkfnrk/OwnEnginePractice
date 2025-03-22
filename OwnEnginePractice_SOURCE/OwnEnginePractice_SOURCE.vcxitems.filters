@@ -1,10 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="$(MSBuildThisFileDirectory)oepApplication.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)oepEntity.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)oepInput.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)oepTime.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)oepComponent.cpp">
       <Filter>Component</Filter>
     </ClCompile>
@@ -17,26 +13,36 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)oepGameObject.cpp">
       <Filter>GameObject</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)oepTransform.cpp">
-      <Filter>Component</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)oepSpriteRenderer.cpp">
-      <Filter>Component</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)oepMath.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)oepResource.cpp">
       <Filter>Resource</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)oepResources.cpp">
       <Filter>Resource</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)oepInput.cpp">
+      <Filter>Helpers</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)oepTime.cpp">
+      <Filter>Helpers</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)oepEntity.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)oepMath.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)oepApplication.cpp">
+      <Filter>High Level Interface</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)oepTransform.cpp">
+      <Filter>Component\Transform</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)oepSpriteRenderer.cpp">
+      <Filter>Component\SpriteRenderer</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)oepLayer.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="$(MSBuildThisFileDirectory)CommonInclude.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)oepApplication.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)oepEntity.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)oepInput.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)oepTime.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)oepComponent.h">
       <Filter>Component</Filter>
     </ClInclude>
@@ -49,19 +55,38 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)oepGameObject.h">
       <Filter>GameObject</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)oepTransform.h">
-      <Filter>Component</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)oepSpriteRenderer.h">
-      <Filter>Component</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)oepMath.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)oepResource.h">
       <Filter>Resource</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)oepResources.h">
       <Filter>Resource</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)oepInput.h">
+      <Filter>Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)oepTime.h">
+      <Filter>Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)oepEntity.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)oepMath.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)CommonInclude.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)oepApplication.h">
+      <Filter>High Level Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)oepTransform.h">
+      <Filter>Component\Transform</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)oepSpriteRenderer.h">
+      <Filter>Component\SpriteRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)oepLayer.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)oepEnums.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Component">
@@ -75,6 +100,21 @@
     </Filter>
     <Filter Include="Resource">
       <UniqueIdentifier>{b497b6bc-8547-435a-9756-3287d3718dff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Helpers">
+      <UniqueIdentifier>{23d93403-2854-4f3c-a430-789f96c83f7b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Common">
+      <UniqueIdentifier>{a0c23262-bbc7-4fb6-b195-1c07e483fe0c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="High Level Interface">
+      <UniqueIdentifier>{d6f64f28-afbc-432b-971d-f1d992f83e52}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Transform">
+      <UniqueIdentifier>{841bf13a-b827-4ec0-8305-be56ade0cbfc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\SpriteRenderer">
+      <UniqueIdentifier>{9e2d0ff9-cf96-4565-8f00-a196bfc70557}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

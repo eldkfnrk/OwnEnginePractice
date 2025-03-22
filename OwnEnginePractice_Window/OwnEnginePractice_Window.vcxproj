@@ -132,13 +132,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="oepEndScene.h" />
     <ClInclude Include="oepLoadScenes.h" />
     <ClInclude Include="oepPlayer.h" />
     <ClInclude Include="oepPlayScene.h" />
+    <ClInclude Include="oepTitleScene.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="oepEndScene.cpp" />
     <ClCompile Include="oepPlayer.cpp" />
     <ClCompile Include="oepPlayScene.cpp" />
+    <ClCompile Include="oepTitleScene.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

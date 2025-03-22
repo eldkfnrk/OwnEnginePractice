@@ -18,8 +18,10 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)oepComponent.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)oepApplication.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)oepEntity.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)oepEnums.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)oepGameObject.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)oepInput.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)oepLayer.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)oepMath.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)oepResource.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)oepResources.h" />
@@ -35,6 +37,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)oepEntity.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)oepGameObject.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)oepInput.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)oepLayer.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)oepMath.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)oepResource.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)oepResources.cpp" />

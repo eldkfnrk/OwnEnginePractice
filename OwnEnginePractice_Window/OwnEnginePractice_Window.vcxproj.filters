@@ -7,17 +7,36 @@
     <ClInclude Include="oepLoadScenes.h">
       <Filter>Scenes</Filter>
     </ClInclude>
-    <ClInclude Include="oepPlayer.h" />
+    <ClInclude Include="oepTitleScene.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="oepPlayer.h">
+      <Filter>Contents</Filter>
+    </ClInclude>
+    <ClInclude Include="oepEndScene.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Scenes">
       <UniqueIdentifier>{3646957d-8cf7-47b4-8167-232d78e36f61}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents">
+      <UniqueIdentifier>{2068edd8-acb2-4e7c-b30e-dd9bafbfc66b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="oepPlayScene.cpp">
       <Filter>Scenes</Filter>
     </ClCompile>
-    <ClCompile Include="oepPlayer.cpp" />
+    <ClCompile Include="oepTitleScene.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="oepPlayer.cpp">
+      <Filter>Contents</Filter>
+    </ClCompile>
+    <ClCompile Include="oepEndScene.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

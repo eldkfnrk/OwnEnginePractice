@@ -2,10 +2,12 @@
 #include "..\OwnEnginePractice_SOURCE\oepScene.h"
 
 namespace oep {
-	class PlayScene : public Scene
+	//TitleScene 클래스 - 게임의 타이틀 씬
+	class TitleScene : public Scene
 	{
 	public:
-		PlayScene();
+		//PlayScene과 기본 골격은 거의 차이가 없다.(그 안에서 동작하는 결과의 차이만 있는 것이다.)
+		TitleScene();
 
 		void Initialize() override;
 		void Update() override;
@@ -15,9 +17,9 @@ namespace oep {
 		void OnEnter() override;
 		void OnExit() override;
 
-		~PlayScene();
+		~TitleScene();
 
 	private:
-		class Player* bg;  //Player 클래스를 모르기 때문에 전방 선언(전방 선언은 순환 참조를 방지하기 위해서만 사용하는 것이 아닌 이렇게 클래스를 모르는 경우에 사용해도 된다.)
+
 	};
 }
