@@ -14,7 +14,7 @@ namespace oep {
 		void LateUpdate() override;
 		void Render(HDC hdc) override;
 
-		void SetPos(Vector2 pos) {
+		void SetPosition(Vector2 pos) {
 			mPosition.x = pos.x;
 			mPosition.y = pos.y;
 		}
@@ -26,6 +26,6 @@ namespace oep {
 		~Transform();
 
 	private:
-		Vector2 mPosition;
+		Vector2 mPosition;  //구조체 생성자 안에서 초기화 해주고 있기 때문에 굳이 따로 이 클래스 생성자에서 초기화 해주지 않아도 된다.
 	};
 }

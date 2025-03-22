@@ -23,6 +23,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)oepInput.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)oepLayer.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)oepMath.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)oepObject.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)oepResource.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)oepResources.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)oepScene.h" />

@@ -2,6 +2,7 @@
 #include "..\OwnEnginePractice_SOURCE\oepScene.h"
 
 namespace oep {
+	//EndScene 클래스 - 게임의 마지막 엔딩 씬
 	class EndScene : public Scene
 	{
 	public:

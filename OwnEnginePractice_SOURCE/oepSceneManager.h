@@ -10,6 +10,8 @@ namespace oep {
 			T* scene = new T();
 		
 			scene->SetName(name);  //이름 설정
+			//씬의 초기화 과정에서 오브젝트를 추가할 때 사용하기 위해서 현재 활성화된 씬을 이 씬으로 설정(오브젝트의 추가는 씬의 초기화 과정에서 일어나기 때문에 반드시 씬의 초기화보다 먼저 나와야 한다.)
+			mActiveScene = scene;  
 			scene->Initialize();  //씬의 초기화
 			
 			mScenes.insert(std::make_pair(name, scene));
@@ -17,24 +19,10 @@ namespace oep {
 			return scene;
 		}
 
-		static Scene* LoadScene(const std::wstring& name) {  
-			//씬이 변경되면서 기존 씬에서 탈출할 때 기존 씬에서 이루어져야 하는 동작을 수행
-			if (mActiveScene) {  //포인터의 값이 nullptr이 아니면 true를 nullptr이면 false를 반환(게임 시작 시에는 아무 씬도 시작하고 있지 않은 상태이기 때문에 이렇게 하지 않으면 오류가 발생할 수 있다.)
-				mActiveScene->OnExit();
-			}
+		static Scene* LoadScene(const std::wstring& name);
 
-			std::map<std::wstring, Scene*>::iterator iter = mScenes.find(name);
-
-			if (iter == mScenes.end()) {
-				return nullptr;  
-			}
-
-			mActiveScene = iter->second;  
-
-			//바뀐 씬으로 들어가면서 해당 씬에 선행되어야 할 동작을 수행
-			mActiveScene->OnEnter();
-
-			return iter->second;
+		static Scene* GetActiveScene() {
+			return mActiveScene;
 		}
 
 		static void Initialize();

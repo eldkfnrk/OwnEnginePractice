@@ -12,7 +12,6 @@ namespace oep {
 		SceneManager::CreateScene<PlayScene>(L"PlayScene");
 		SceneManager::CreateScene<EndScene>(L"EndScene");
 
-		//SceneManager::LoadScene(L"PlayScene");
 		SceneManager::LoadScene(L"TitleScene");  //게임 시작 시에 제일 먼저 나오는 씬은 타이틀 씬이기 때문에 이것은 변경될 일이 없다.
 	}
 }

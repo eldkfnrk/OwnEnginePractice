@@ -3,12 +3,14 @@
 namespace oep {
 	Scene::Scene() : mLayers{}
 	{
-		mLayers.resize((UINT)eLayerType::Max);  //레이어를 저장한 벡터를 최대 값으로 설정한 값만큼 크기 재조정
+		//mLayers.resize((UINT)enums::eLayerType::Max);  
 
-		//배열 안 원소들을 메모리 할당
-		for (size_t i = 0; i < (UINT)eLayerType::Max; i++) {
-			mLayers[i] = new Layer();
-		}
+		//for (size_t i = 0; i < (UINT)enums::eLayerType::Max; i++) {
+		//	mLayers[i] = new Layer();
+		//}
+
+		//위의 동작을 이 함수에 저장하고 함수를 호출
+		createLayers();
 	}
 
 	void Scene::Initialize() {
@@ -22,11 +24,6 @@ namespace oep {
 	}
 
 	void Scene::Update() {
-		//for (GameObject* gameObj : mGameObjects) {
-		//	gameObj->Update();
-		//}
-
-		//기존에 하던 동작은 게임 오브젝트 Update였다면 지금은 레이어 Update이다.(LateUpdate와 Render, Initialize도 마찬가지)
 		for (Layer* layer : mLayers) {
 			if (layer == nullptr) {
 				continue;
@@ -37,10 +34,6 @@ namespace oep {
 	}
 
 	void Scene::LateUpdate() {
-		//for (GameObject* gameObj : mGameObjects) {
-		//	gameObj->LateUpdate();
-		//}
-
 		for (Layer* layer : mLayers) {
 			if (layer == nullptr) {
 				continue;
@@ -51,10 +44,6 @@ namespace oep {
 	}
 
 	void Scene::Render(HDC hdc) {
-		//for (GameObject* gameObj : mGameObjects) {
-		//	gameObj->Render(hdc);
-		//}
-
 		for (Layer* layer : mLayers) {
 			if (layer == nullptr) {
 				continue;
@@ -72,16 +61,20 @@ namespace oep {
 
 	}
 
-	//void Scene::AddGameObject(GameObject* gameObj) {
-	//	mGameObjects.push_back(gameObj);
-	//}
-
-	void Scene::AddGameObject(GameObject* gameObj, const eLayerType type) {
+	void Scene::AddGameObject(GameObject* gameObj, const enums::eLayerType type) {
 		if (gameObj == nullptr) {
 			return;
 		}
 
 		mLayers[(UINT)type]->AddGameObject(gameObj);
+	}
+
+	void Scene::createLayers() {
+		mLayers.resize((UINT)enums::eLayerType::Max);
+
+		for (size_t i = 0; i < (UINT)enums::eLayerType::Max; i++) {
+			mLayers[i] = new Layer();
+		}
 	}
 
 	Scene::~Scene()
