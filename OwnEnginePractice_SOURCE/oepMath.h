@@ -7,6 +7,10 @@ namespace oep::math {
 	//오브젝트의 위치 정보를 갖는 구조체
 	struct Vector2
 	{
+		//많이 사용될 값을 따로 저장
+		static Vector2 One;  //1.0f, 1.0f
+		static Vector2 Zero;  //0.0f, 0.0f
+
 		float x;
 		float y;
 

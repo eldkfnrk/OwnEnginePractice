@@ -5,6 +5,7 @@
 #include "Window_Editor.h"
 #include "..\OwnEnginePractice_SOURCE\oepApplication.h"  //정적 라이브러리 연결
 #include "..\OwnEnginePractice_Window\oepLoadScenes.h"
+#include "..\OwnEnginePractice_Window\oepLoadResources.h"
 
 oep::Application application;
 
@@ -139,6 +140,11 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
    UpdateWindow(hWnd);
 
    Gdiplus::GdiplusStartup(&gpToken, &gpsi, NULL);  //Gdiplus를 활성화
+
+   //load Resources -> 프로그램이 실행됨과 동시에 게임에 모든 모든 리소스를 Resource에 추가
+   //이 함수는 반드시 LoadScenes 함수보다 먼저 호출되어야 하는데 그 이유는 씬에서 리소스를 사용해야 하는데 리소스가 추가가 안 되어 있으면 당연히 찾는 리소스가 없으니
+   //정상적으로 씬이 구성되지 않을 것이기 때문이다.
+   oep::LoadResources();
 
    //load Scenes -> 프로그램이 실행됨과 동시에 게임에 모든 씬들을 SceneManager에 추가
    oep::LoadScenes();

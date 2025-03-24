@@ -40,7 +40,12 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)oepSpriteRenderer.cpp">
       <Filter>Component\SpriteRenderer</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)oepLayer.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)oepTexture.cpp">
+      <Filter>Resource\Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)oepLayer.cpp">
+      <Filter>Layer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)oepComponent.h">
@@ -85,12 +90,17 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)oepSpriteRenderer.h">
       <Filter>Component\SpriteRenderer</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)oepLayer.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)oepObject.h">
       <Filter>Common</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)oepEnums.h">
       <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)oepTexture.h">
+      <Filter>Resource\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)oepLayer.h">
+      <Filter>Layer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -120,6 +130,12 @@
     </Filter>
     <Filter Include="Component\SpriteRenderer">
       <UniqueIdentifier>{9e2d0ff9-cf96-4565-8f00-a196bfc70557}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource\Texture">
+      <UniqueIdentifier>{36f9088f-aa00-445f-9f4d-4cf4cd14bb9d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Layer">
+      <UniqueIdentifier>{20c7ccc9-3595-41f2-ab70-a7c767b6e079}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

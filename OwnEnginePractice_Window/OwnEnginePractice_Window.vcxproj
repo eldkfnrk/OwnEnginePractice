@@ -132,6 +132,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="oepLoadResources.h" />
     <ClInclude Include="oepEndScene.h" />
     <ClInclude Include="oepLoadScenes.h" />
     <ClInclude Include="oepPlayer.h" />

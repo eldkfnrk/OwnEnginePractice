@@ -29,6 +29,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)oepScene.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)oepSceneManager.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)oepSpriteRenderer.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)oepTexture.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)oepTime.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)oepTransform.h" />
   </ItemGroup>
@@ -45,6 +46,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)oepScene.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)oepSceneManager.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)oepSpriteRenderer.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)oepTexture.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)oepTime.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)oepTransform.cpp" />
   </ItemGroup>

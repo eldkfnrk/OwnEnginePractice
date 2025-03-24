@@ -3,13 +3,6 @@
 namespace oep {
 	Scene::Scene() : mLayers{}
 	{
-		//mLayers.resize((UINT)enums::eLayerType::Max);  
-
-		//for (size_t i = 0; i < (UINT)enums::eLayerType::Max; i++) {
-		//	mLayers[i] = new Layer();
-		//}
-
-		//위의 동작을 이 함수에 저장하고 함수를 호출
 		createLayers();
 	}
 
