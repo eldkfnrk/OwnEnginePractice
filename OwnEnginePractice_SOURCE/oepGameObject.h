@@ -17,7 +17,9 @@ namespace oep {
 		T* AddComponent() {
 			T* comp = new T();
 			comp->SetOwner(this);
-			mComponents.push_back(comp);
+
+			mComponents[(UINT)comp->GetType()] = comp;  //이제 puch_back 대신 지정된 위치의 원소에 삽입
+			//mComponents.push_back(comp);
 
 			return comp;
 		}

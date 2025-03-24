@@ -15,6 +15,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)CommonInclude.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)oepCamera.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)oepComponent.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)oepApplication.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)oepEntity.h" />
@@ -24,16 +25,19 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)oepLayer.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)oepMath.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)oepObject.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)oepRenderer.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)oepResource.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)oepResources.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)oepScene.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)oepSceneManager.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)oepScript.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)oepSpriteRenderer.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)oepTexture.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)oepTime.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)oepTransform.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="$(MSBuildThisFileDirectory)oepCamera.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)oepComponent.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)oepApplication.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)oepEntity.cpp" />
@@ -41,10 +45,12 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)oepInput.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)oepLayer.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)oepMath.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)oepRenderer.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)oepResource.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)oepResources.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)oepScene.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)oepSceneManager.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)oepScript.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)oepSpriteRenderer.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)oepTexture.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)oepTime.cpp" />

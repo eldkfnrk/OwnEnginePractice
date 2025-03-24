@@ -21,5 +21,22 @@ namespace oep::math {
 		Vector2(float x, float y) : x(x), y(y) {
 
 		}
+
+		//연산자 오버로딩
+		Vector2 operator+(Vector2 other) {
+			return Vector2(x + other.x, y + other.y);
+		}
+
+		Vector2 operator-(Vector2 other) {
+			return Vector2(x - other.x, y - other.y);
+		}
+
+		Vector2 operator/(Vector2 other) {
+			return Vector2(x / other.x, y / other.y);
+		}
+
+		Vector2 operator/(float value) {
+			return Vector2(x / value, y / value);
+		}
 	};
 }

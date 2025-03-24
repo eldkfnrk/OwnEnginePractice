@@ -46,6 +46,15 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)oepLayer.cpp">
       <Filter>Layer</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)oepScript.cpp">
+      <Filter>Component\Script</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)oepCamera.cpp">
+      <Filter>Component\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)oepRenderer.cpp">
+      <Filter>Renderer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)oepComponent.h">
@@ -102,6 +111,15 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)oepLayer.h">
       <Filter>Layer</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)oepScript.h">
+      <Filter>Component\Script</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)oepCamera.h">
+      <Filter>Component\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)oepRenderer.h">
+      <Filter>Renderer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Component">
@@ -136,6 +154,15 @@
     </Filter>
     <Filter Include="Layer">
       <UniqueIdentifier>{20c7ccc9-3595-41f2-ab70-a7c767b6e079}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Script">
+      <UniqueIdentifier>{9c40e635-b22f-4c4b-a4de-1c26952f1bfb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Camera">
+      <UniqueIdentifier>{80d34747-e0ee-4fb5-afe8-c777eb494746}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Renderer">
+      <UniqueIdentifier>{6f3d61ee-6a6b-4659-81c7-4b7cc86cb747}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

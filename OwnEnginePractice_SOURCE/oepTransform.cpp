@@ -1,7 +1,7 @@
 #include "oepTransform.h"
 
 namespace oep {
-	Transform::Transform()
+	Transform::Transform() : Component(enums::eComponentType::Transform)
 	{
 
 	}

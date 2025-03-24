@@ -7,7 +7,7 @@ namespace oep {
 	class Component : public Entity
 	{
 	public:
-		Component();
+		Component(enums::eComponentType type);
 
 		virtual void Initialize();
 		virtual void Update();
@@ -22,9 +22,14 @@ namespace oep {
 			return mOwner;
 		}
 
+		enums::eComponentType GetType() {
+			return mType;
+		}	
+
 		~Component();
 
 	private:
 		GameObject* mOwner;
+		enums::eComponentType mType;  //컴포넌트 타입을 저장(컴포넌트를 벡터에 저장할 때 컴포넌트 순서를 맞추기 위해서 이를 저장)
 	};
 }

@@ -17,6 +17,9 @@
       <Filter>Scenes</Filter>
     </ClInclude>
     <ClInclude Include="oepLoadResources.h" />
+    <ClInclude Include="oepPlayerScript.h">
+      <Filter>Scripts</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Scenes">
@@ -24,6 +27,9 @@
     </Filter>
     <Filter Include="Contents">
       <UniqueIdentifier>{2068edd8-acb2-4e7c-b30e-dd9bafbfc66b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts">
+      <UniqueIdentifier>{4a8c3a17-4c9f-44d4-886e-781cfc522bc8}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -38,6 +44,9 @@
     </ClCompile>
     <ClCompile Include="oepEndScene.cpp">
       <Filter>Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="oepPlayerScript.cpp">
+      <Filter>Scripts</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
