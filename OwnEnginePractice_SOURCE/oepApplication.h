@@ -18,6 +18,14 @@ namespace oep {
 			return mHdc;
 		}
 
+		UINT GetWidth() {
+			return mWidth;
+		}
+
+		UINT GetHeight() {
+			return mHeight;
+		}
+
 		~Application(); 
 
 	private:

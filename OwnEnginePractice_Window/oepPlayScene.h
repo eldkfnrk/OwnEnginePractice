@@ -18,6 +18,6 @@ namespace oep {
 		~PlayScene();
 
 	private:
-		class Player* bg;  
+		class Player* mPlayer;  
 	};
 }

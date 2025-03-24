@@ -15,6 +15,8 @@ Gdiplus::GdiplusStartupInput gpsi;  //GdiplusStartupInput - Gdiplus를 사용하
 
 //폴더 이름에 최대한 한글이 들어가지 않게 해야 한다.(파일 경로에 한글이 들어가게 되면 문제가 발생할 확률이 높기 때문에)
 
+//이 강의에서는 팩맨을 완성시켜볼 예정
+
 #define MAX_LOADSTRING 100
 
 // 전역 변수:
@@ -122,8 +124,12 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
    hInst = hInstance; // 인스턴스 핸들을 전역 변수에 저장합니다.
 
    //윈도우 해상도
-   const UINT width = 1600;
-   const UINT height = 900;
+   //const UINT width = 1600;
+   //const UINT height = 900;
+
+   //팩맨을 원본 파일 그대로 플레이하면 화면이 굉장히 작기 때문에 윈도우를 적절한 크기(맵의 3배)로 설정
+   const UINT width = 672;
+   const UINT height = 846;
 
    //핸들은 윈도우 생성과 동시에 생성
    HWND hWnd = CreateWindowW(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW,
