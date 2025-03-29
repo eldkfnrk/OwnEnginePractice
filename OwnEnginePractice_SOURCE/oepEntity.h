@@ -1,6 +1,8 @@
 #pragma once
 #include "CommonInclude.h"
 
+using namespace oep::math;
+
 namespace oep {
 	class Entity
 	{

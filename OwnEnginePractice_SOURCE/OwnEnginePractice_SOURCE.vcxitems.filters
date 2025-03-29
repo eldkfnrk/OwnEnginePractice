@@ -55,6 +55,12 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)oepRenderer.cpp">
       <Filter>Renderer</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)oepAnimator.cpp">
+      <Filter>Component\Animator</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)oepAnimation.cpp">
+      <Filter>Resource\Animation</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)oepComponent.h">
@@ -120,6 +126,12 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)oepRenderer.h">
       <Filter>Renderer</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)oepAnimator.h">
+      <Filter>Component\Animator</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)oepAnimation.h">
+      <Filter>Resource\Animation</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Component">
@@ -163,6 +175,12 @@
     </Filter>
     <Filter Include="Renderer">
       <UniqueIdentifier>{6f3d61ee-6a6b-4659-81c7-4b7cc86cb747}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Animator">
+      <UniqueIdentifier>{454ce725-a5cd-4e90-acc8-516a42416b4c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource\Animation">
+      <UniqueIdentifier>{5ffe3d3d-04fe-4f41-a3c6-b250068055a9}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
