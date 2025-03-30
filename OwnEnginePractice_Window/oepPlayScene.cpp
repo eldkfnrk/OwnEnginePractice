@@ -23,30 +23,48 @@ namespace oep {
         Camera* cameraComp = camera->AddComponent<Camera>();
         renderer::mainCamera = cameraComp;  //메인 카메라
 
-        mPlayer = object::Instantiate<Player>(enums::eLayerType::Player);
+        mPlayer = object::Instantiate<Player>(enums::eLayerType::Particle);
 
-        //애니메이션을 사용하여 움직임을 표현해야 하는 오브젝트들은 지금부터 SpriteRenderer가 아닌 Animator가 화면 출력을 하게 된다.
-        //SpriteRenderer는 배경같은 멈춰있는 것을 그릴 때 사용하고 Animator는 플레이어 같은 움직이는 것들을 그릴 때 사용한다.
+        //제대로 애니메이션이 동작하는지 각도가 적용되는지 등을 확인하기 위한 테스트 코드
+        //graphics::Texture* pacmanTex = Resources::Find<graphics::Texture>(L"MapleEffect");
+        //PlayerScript* playerSc = mPlayer->AddComponent<PlayerScript>();
+        //Animator* animator = mPlayer->AddComponent<Animator>();
+        //
+        //animator->CreateAnimation(L"CatFrontMove", pacmanTex, Vector2::Zero, Vector2(386.0f, 246.0f), Vector2::Zero, 8, 0.1f);
+        //animator->PlayAnimation(L"CatFrontMove", true);
 
-        //SpriteRenderer* sr = mPlayer->AddComponent<SpriteRenderer>();
-        //sr->SetName(L"SR");
-        //sr->SetSize(Vector2(3.0f, 3.0f));  //윈도우 크기가 커졌으니 이에 맞춰 크기를 3배로 키워주었다
+        //Transform* tr = mPlayer->GetComponent<Transform>();
+        //tr->SetPosition(Vector2(100.0f, 100.0f));
+        //tr->SetRotation(30.0f);
+        //tr->SetScale(Vector2(1.0f, 1.0f));
+
         graphics::Texture* pacmanTex = Resources::Find<graphics::Texture>(L"CHICKEN");
-        //sr->SetTexture(pacmanTex);
         PlayerScript* playerSc = mPlayer->AddComponent<PlayerScript>();
         Animator* animator = mPlayer->AddComponent<Animator>();
-        
-        animator->CreateAnimation(L"CatFrontMove", pacmanTex, Vector2::Zero, Vector2(32.0f, 32.0f), Vector2::Zero, 4, 0.2f);
-        animator->PlayAnimation(L"CatFrontMove", true);
 
-        GameObject* map = object::Instantiate<GameObject>(enums::eLayerType::BackGround);
+        //모든 에니메이션을 가지고 만들어놓고 있어야 한다.
+        animator->CreateAnimation(L"FrontWalk", pacmanTex, Vector2::Zero, Vector2(32.0f, 32.0f), Vector2::Zero, 4, 0.2f);
+        animator->CreateAnimation(L"RightWalk", pacmanTex, Vector2(0.0f, 32.0f), Vector2(32.0f, 32.0f), Vector2::Zero, 4, 0.2f);
+        animator->CreateAnimation(L"BackWalk", pacmanTex, Vector2(0.0f, 64.0f), Vector2(32.0f, 32.0f), Vector2::Zero, 4, 0.2f);
+        animator->CreateAnimation(L"LeftWalk", pacmanTex, Vector2(0.0f, 96.0f), Vector2(32.0f, 32.0f), Vector2::Zero, 4, 0.2f);
+        animator->CreateAnimation(L"SitDown", pacmanTex, Vector2(0.0f, 128.0f), Vector2(32.0f, 32.0f), Vector2::Zero, 4, 0.1f);
+        animator->CreateAnimation(L"Grooming", pacmanTex, Vector2(0.0f, 160.0f), Vector2(32.0f, 32.0f), Vector2::Zero, 4, 0.1f);
+        animator->CreateAnimation(L"Sleep", pacmanTex, Vector2(0.0f, 192.0f), Vector2(32.0f, 32.0f), Vector2::Zero, 4, 0.1f);
+        animator->CreateAnimation(L"WakeUp", pacmanTex, Vector2(0.0f, 226.0f), Vector2(32.0f, 32.0f), Vector2::Zero, 4, 0.1f);
+        animator->PlayAnimation(L"SitDown", false);
+        
+        Transform* tr = mPlayer->GetComponent<Transform>();
+        tr->SetPosition(Vector2(100.0f, 100.0f));
+        tr->SetRotation(0.0f);
+        tr->SetScale(Vector2(2.0f, 2.0f));
+
+        GameObject* map = object::Instantiate<GameObject>(enums::eLayerType::Player);
 
         SpriteRenderer* mapSr = map->AddComponent<SpriteRenderer>();
-        mapSr->SetSize(Vector2(3.0f, 3.0f));  //윈도우 크기가 커졌으니 이에 맞춰 크기를 3배로 키워주었다
-        graphics::Texture* mapTex = Resources::Find<graphics::Texture>(L"MAP");
+        //mapSr->SetSize(Vector2(3.0f, 3.0f));  
+        graphics::Texture* mapTex = Resources::Find<graphics::Texture>(L"BUBBLE");
         mapSr->SetTexture(mapTex);
         
-        //게임 오브젝트 생성 후 레이어와 게임 오브젝트들의 init 함수 호출
         Scene::Initialize();
     }
 
@@ -66,12 +84,6 @@ namespace oep {
     void PlayScene::Render(HDC hdc)
     {
         Scene::Render(hdc);
-
-        //이젠 플레이 씬이 무엇인지 구분할 수 있으니 삭제
-        //wchar_t name_str[50] = L"PlayScene";
-        //int len = wcsnlen_s(name_str, 50);
-
-        //TextOut(hdc, 0, 0, name_str, len);
     }
 
     void PlayScene::OnEnter()

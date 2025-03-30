@@ -1,7 +1,7 @@
 #include "oepTransform.h"
 
 namespace oep {
-	Transform::Transform() : Component(enums::eComponentType::Transform)
+	Transform::Transform() : Component(enums::eComponentType::Transform), mPosition(Vector2::Zero), mScale(Vector2::One), mRotation(0.0f)
 	{
 
 	}

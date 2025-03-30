@@ -23,9 +23,29 @@ namespace oep {
 			return mPosition;
 		}
 
+		void SetRotation(float rotation) {
+			mRotation = rotation;
+		}
+
+		float GetRotation() {
+			return mRotation;
+		}
+		
+		void SetScale(Vector2 scale) {
+			mScale.x = scale.x;
+			mScale.y = scale.y;
+		}
+
+		Vector2 GetScale() {
+			return mScale;
+		}
+
 		~Transform();
 
 	private:
-		Vector2 mPosition;  //구조체 생성자 안에서 초기화 해주고 있기 때문에 굳이 따로 이 클래스 생성자에서 초기화 해주지 않아도 된다.
+		//Transform 컴포넌트가 이제부턴 오브젝트의 위치 정보 뿐만 아니라 오브젝트의 크기와 각도까지 모두 위임받아 관리하도록 수정
+		Vector2 mPosition;  
+		Vector2 mScale;  //이 컴포넌트를 가지고 있는 오브젝트의 크기
+		float mRotation;  //오브젝트의 각도(회전)
 	};
 }
