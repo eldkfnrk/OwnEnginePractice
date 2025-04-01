@@ -136,6 +136,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="oepCat.h" />
+    <ClInclude Include="oepCatScript.h" />
     <ClInclude Include="oepLoadResources.h" />
     <ClInclude Include="oepEndScene.h" />
     <ClInclude Include="oepLoadScenes.h" />
@@ -145,6 +147,8 @@
     <ClInclude Include="oepTitleScene.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="oepCat.cpp" />
+    <ClCompile Include="oepCatScript.cpp" />
     <ClCompile Include="oepEndScene.cpp" />
     <ClCompile Include="oepPlayer.cpp" />
     <ClCompile Include="oepPlayerScript.cpp" />

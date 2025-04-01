@@ -7,7 +7,7 @@ namespace oep::enums {
 		//Ground,
 		//Tree,
 		//Rock,
-		//Character,
+		Animal,
 		Player,
 		Particle,  //이펙트
 		Max = 16,  //레이어는 너무 크게 설정하지 않고 게임에 맞게 필요한 만큼만 사용하면 된다.

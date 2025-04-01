@@ -25,3 +25,5 @@
 #pragma comment(lib,"gdiplus.lib");  //명시적 라이브러리 링크 방법(프로젝트에서 속성에 들어가 라이브러리를 추가할 필요없이 라이브러리 추가를 프로그램 파일 안에서 코드로 추가 할 수 있는 방법)
 
 #include "oepEnums.h"  //열거형을 모아놓은 헤더 파일
+
+#include <time.h>

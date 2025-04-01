@@ -20,6 +20,12 @@
     <ClInclude Include="oepPlayerScript.h">
       <Filter>Scripts</Filter>
     </ClInclude>
+    <ClInclude Include="oepCat.h">
+      <Filter>Contents</Filter>
+    </ClInclude>
+    <ClInclude Include="oepCatScript.h">
+      <Filter>Scripts</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Scenes">
@@ -46,6 +52,12 @@
       <Filter>Scenes</Filter>
     </ClCompile>
     <ClCompile Include="oepPlayerScript.cpp">
+      <Filter>Scripts</Filter>
+    </ClCompile>
+    <ClCompile Include="oepCat.cpp">
+      <Filter>Contents</Filter>
+    </ClCompile>
+    <ClCompile Include="oepCatScript.cpp">
       <Filter>Scripts</Filter>
     </ClCompile>
   </ItemGroup>

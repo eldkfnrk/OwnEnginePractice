@@ -11,6 +11,8 @@
 #include "..\OwnEnginePractice_SOURCE\oepAnimation.h"
 #include "oepPlayer.h"
 #include "oepPlayerScript.h"
+#include "oepCat.h"
+#include "oepCatScript.h"
 
 namespace oep {
     PlayScene::PlayScene() : mPlayer(nullptr)
@@ -23,20 +25,7 @@ namespace oep {
         Camera* cameraComp = camera->AddComponent<Camera>();
         renderer::mainCamera = cameraComp;  //메인 카메라
 
-        mPlayer = object::Instantiate<Player>(enums::eLayerType::Particle);
-
-        //제대로 애니메이션이 동작하는지 각도가 적용되는지 등을 확인하기 위한 테스트 코드
-        //graphics::Texture* pacmanTex = Resources::Find<graphics::Texture>(L"MapleEffect");
-        //PlayerScript* playerSc = mPlayer->AddComponent<PlayerScript>();
-        //Animator* animator = mPlayer->AddComponent<Animator>();
-        //
-        //animator->CreateAnimation(L"CatFrontMove", pacmanTex, Vector2::Zero, Vector2(386.0f, 246.0f), Vector2::Zero, 8, 0.1f);
-        //animator->PlayAnimation(L"CatFrontMove", true);
-
-        //Transform* tr = mPlayer->GetComponent<Transform>();
-        //tr->SetPosition(Vector2(100.0f, 100.0f));
-        //tr->SetRotation(30.0f);
-        //tr->SetScale(Vector2(1.0f, 1.0f));
+        mPlayer = object::Instantiate<Player>(enums::eLayerType::Player);
 
         graphics::Texture* pacmanTex = Resources::Find<graphics::Texture>(L"CHICKEN");
         PlayerScript* playerSc = mPlayer->AddComponent<PlayerScript>();
@@ -58,12 +47,34 @@ namespace oep {
         tr->SetRotation(0.0f);
         tr->SetScale(Vector2(2.0f, 2.0f));
 
-        GameObject* map = object::Instantiate<GameObject>(enums::eLayerType::Player);
+        //GameObject* map = object::Instantiate<GameObject>(enums::eLayerType::Player);
 
-        SpriteRenderer* mapSr = map->AddComponent<SpriteRenderer>();
-        //mapSr->SetSize(Vector2(3.0f, 3.0f));  
-        graphics::Texture* mapTex = Resources::Find<graphics::Texture>(L"BUBBLE");
-        mapSr->SetTexture(mapTex);
+        //SpriteRenderer* mapSr = map->AddComponent<SpriteRenderer>();
+        ////mapSr->SetSize(Vector2(3.0f, 3.0f));  
+        //graphics::Texture* mapTex = Resources::Find<graphics::Texture>(L"BUBBLE");
+        //mapSr->SetTexture(mapTex);
+
+        //고양이 npc 추가
+        Cat* cat= object::Instantiate<Cat>(enums::eLayerType::Animal);
+        graphics::Texture* catTex = Resources::Find<graphics::Texture>(L"CHICKEN");
+        CatScript* catSc = cat->AddComponent<CatScript>();
+        Animator* catAnimator = cat->AddComponent<Animator>();
+
+        //모든 에니메이션을 가지고 만들어놓고 있어야 한다.
+        catAnimator->CreateAnimation(L"DownMove", catTex, Vector2::Zero, Vector2(32.0f, 32.0f), Vector2::Zero, 4, 0.2f);
+        catAnimator->CreateAnimation(L"RightMove", catTex, Vector2(0.0f, 32.0f), Vector2(32.0f, 32.0f), Vector2::Zero, 4, 0.2f);
+        catAnimator->CreateAnimation(L"UpMove", catTex, Vector2(0.0f, 64.0f), Vector2(32.0f, 32.0f), Vector2::Zero, 4, 0.2f);
+        catAnimator->CreateAnimation(L"LeftMove", catTex, Vector2(0.0f, 96.0f), Vector2(32.0f, 32.0f), Vector2::Zero, 4, 0.2f);
+        catAnimator->CreateAnimation(L"SitDown", catTex, Vector2(0.0f, 128.0f), Vector2(32.0f, 32.0f), Vector2::Zero, 4, 0.1f);
+        catAnimator->CreateAnimation(L"Grooming", catTex, Vector2(0.0f, 160.0f), Vector2(32.0f, 32.0f), Vector2::Zero, 4, 0.1f);
+        catAnimator->CreateAnimation(L"LayDown", catTex, Vector2(0.0f, 192.0f), Vector2(32.0f, 32.0f), Vector2::Zero, 4, 0.1f);  //lay down - 눕다
+        catAnimator->CreateAnimation(L"WakeUp", catTex, Vector2(0.0f, 226.0f), Vector2(32.0f, 32.0f), Vector2::Zero, 4, 0.1f);
+        catAnimator->PlayAnimation(L"SitDown", false);
+
+        Transform* tr1 = cat->GetComponent<Transform>();
+        tr1->SetPosition(Vector2(200.0f, 200.0f));
+        tr1->SetRotation(0.0f);
+        tr1->SetScale(Vector2(2.0f, 2.0f));
         
         Scene::Initialize();
     }

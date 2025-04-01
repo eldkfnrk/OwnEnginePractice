@@ -114,15 +114,15 @@ namespace oep {
 			position.x += 100.0f * Time::DeltaTime();
 		}
 
-		if (Input::GetKey(eKeyCode::Left)) {
+		else if (Input::GetKey(eKeyCode::Left)) {
 			position.x -= 100.0f * Time::DeltaTime();
 		}
 
-		if (Input::GetKey(eKeyCode::Up)) {
+		else if (Input::GetKey(eKeyCode::Up)) {
 			position.y -= 100.0f * Time::DeltaTime();
 		}
 
-		if (Input::GetKey(eKeyCode::Down)) {
+		else if (Input::GetKey(eKeyCode::Down)) {
 			position.y += 100.0f * Time::DeltaTime();
 		}
 
