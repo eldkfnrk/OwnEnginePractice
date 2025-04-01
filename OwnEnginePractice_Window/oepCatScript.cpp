@@ -85,32 +85,6 @@ namespace oep {
 		Transform* tr = GetOwner()->GetComponent<Transform>();
 
 		translate(tr);
-
-		//아래의 모든 동작을 위의 함수가 대신 동작(리팩토링)
-		//Vector2 position = tr->GetPosition();
-
-		//if (Input::GetKey(eKeyCode::Right)) {
-		//	position.x += 100.0f * Time::DeltaTime();
-		//}
-
-		//else if (Input::GetKey(eKeyCode::Left)) {
-		//	position.x -= 100.0f * Time::DeltaTime();
-		//}
-
-		//else if (Input::GetKey(eKeyCode::Up)) {
-		//	position.y -= 100.0f * Time::DeltaTime();
-		//}
-
-		//else if (Input::GetKey(eKeyCode::Down)) {
-		//	position.y += 100.0f * Time::DeltaTime();
-		//}
-
-		//if (Input::GetKeyUp(eKeyCode::Right) || Input::GetKeyUp(eKeyCode::Left) || Input::GetKeyUp(eKeyCode::Up) || Input::GetKeyUp(eKeyCode::Down)) {
-		//	mState = eState::SitDown;
-		//	mAnimator->PlayAnimation(L"SitDown", false);
-		//}
-
-		//tr->SetPosition(position);
 	}
 
 	void CatScript::playWalkAnimationByDirection(eDirection direction)

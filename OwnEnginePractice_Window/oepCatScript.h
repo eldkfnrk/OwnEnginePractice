@@ -9,11 +9,7 @@ namespace oep {
 		//FSM 패턴 사용을 위한 오브젝트 상태 정의
 		enum class eState {
 			SitDown,
-			//LeftWalk,
-			//RightWalk,
-			//DownWalk,
-			//UpWalk,
-			Move,  //굳이 방향을 나누지 않고 하나로 묶어서 사용
+			Move,  
 			LayDown,
 			WakeUp,
 			Grooming,
@@ -40,7 +36,7 @@ namespace oep {
 		//각 상태에 맞는 동작을 정의할 함수
 		void sitDown();
 		void move();
-		void layDown();
+		//void layDown();
 		void playWalkAnimationByDirection(eDirection direction);  //방향에 따른 애니메이션 출력
 		void translate(Transform* transform);  //이동 관련 동작을 모아놓은 함수
 

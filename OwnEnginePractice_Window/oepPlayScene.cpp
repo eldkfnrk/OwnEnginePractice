@@ -27,36 +27,41 @@ namespace oep {
 
         mPlayer = object::Instantiate<Player>(enums::eLayerType::Player);
 
-        graphics::Texture* pacmanTex = Resources::Find<graphics::Texture>(L"CHICKEN");
-        PlayerScript* playerSc = mPlayer->AddComponent<PlayerScript>();
-        Animator* animator = mPlayer->AddComponent<Animator>();
+        graphics::Texture* playerTex = Resources::Find<graphics::Texture>(L"Player");
+        Animator* playerAnimator = mPlayer->AddComponent<Animator>();
+        PlayerScript* playerScript = mPlayer->AddComponent<PlayerScript>();
 
-        //모든 에니메이션을 가지고 만들어놓고 있어야 한다.
-        animator->CreateAnimation(L"FrontWalk", pacmanTex, Vector2::Zero, Vector2(32.0f, 32.0f), Vector2::Zero, 4, 0.2f);
-        animator->CreateAnimation(L"RightWalk", pacmanTex, Vector2(0.0f, 32.0f), Vector2(32.0f, 32.0f), Vector2::Zero, 4, 0.2f);
-        animator->CreateAnimation(L"BackWalk", pacmanTex, Vector2(0.0f, 64.0f), Vector2(32.0f, 32.0f), Vector2::Zero, 4, 0.2f);
-        animator->CreateAnimation(L"LeftWalk", pacmanTex, Vector2(0.0f, 96.0f), Vector2(32.0f, 32.0f), Vector2::Zero, 4, 0.2f);
-        animator->CreateAnimation(L"SitDown", pacmanTex, Vector2(0.0f, 128.0f), Vector2(32.0f, 32.0f), Vector2::Zero, 4, 0.1f);
-        animator->CreateAnimation(L"Grooming", pacmanTex, Vector2(0.0f, 160.0f), Vector2(32.0f, 32.0f), Vector2::Zero, 4, 0.1f);
-        animator->CreateAnimation(L"Sleep", pacmanTex, Vector2(0.0f, 192.0f), Vector2(32.0f, 32.0f), Vector2::Zero, 4, 0.1f);
-        animator->CreateAnimation(L"WakeUp", pacmanTex, Vector2(0.0f, 226.0f), Vector2(32.0f, 32.0f), Vector2::Zero, 4, 0.1f);
-        animator->PlayAnimation(L"SitDown", false);
+        playerAnimator->CreateAnimation(L"Idle", playerTex, Vector2(2000.0f, 250.0f), Vector2(250.0f, 250.0f), Vector2::Zero, 1, 0.1f);
+        playerAnimator->CreateAnimation(L"RightWalk", playerTex, Vector2::Zero, Vector2(250.0f, 250.0f), Vector2::Zero, 6, 0.1f);
+        playerAnimator->CreateAnimation(L"LeftWalk", playerTex, Vector2(1500.0f, 0.0f), Vector2(250.0f, 250.0f), Vector2::Zero, 6, 0.1f);
+        playerAnimator->CreateAnimation(L"FrontGiveWater", playerTex, Vector2(0.0f, 2000.0f), Vector2(250.0f, 250.0f), Vector2::Zero, 12, 0.1f);
+        playerAnimator->PlayAnimation(L"Idle");
+        //playerAnimator->CreateAnimation(L"", playerTex, Vector2(0.0f, 250.0f), Vector2(250.0f, 250.0f), Vector2::Zero, 8, 0.1f);
+
+        //graphics::Texture* pacmanTex = Resources::Find<graphics::Texture>(L"CHICKEN");
+        //PlayerScript* playerSc = mPlayer->AddComponent<PlayerScript>();
+        //Animator* animator = mPlayer->AddComponent<Animator>();
+
+        ////모든 에니메이션을 가지고 만들어놓고 있어야 한다.
+        //animator->CreateAnimation(L"FrontWalk", pacmanTex, Vector2::Zero, Vector2(32.0f, 32.0f), Vector2::Zero, 4, 0.2f);
+        //animator->CreateAnimation(L"RightWalk", pacmanTex, Vector2(0.0f, 32.0f), Vector2(32.0f, 32.0f), Vector2::Zero, 4, 0.2f);
+        //animator->CreateAnimation(L"BackWalk", pacmanTex, Vector2(0.0f, 64.0f), Vector2(32.0f, 32.0f), Vector2::Zero, 4, 0.2f);
+        //animator->CreateAnimation(L"LeftWalk", pacmanTex, Vector2(0.0f, 96.0f), Vector2(32.0f, 32.0f), Vector2::Zero, 4, 0.2f);
+        //animator->CreateAnimation(L"SitDown", pacmanTex, Vector2(0.0f, 128.0f), Vector2(32.0f, 32.0f), Vector2::Zero, 4, 0.1f);
+        //animator->CreateAnimation(L"Grooming", pacmanTex, Vector2(0.0f, 160.0f), Vector2(32.0f, 32.0f), Vector2::Zero, 4, 0.1f);
+        //animator->CreateAnimation(L"Sleep", pacmanTex, Vector2(0.0f, 192.0f), Vector2(32.0f, 32.0f), Vector2::Zero, 4, 0.1f);
+        //animator->CreateAnimation(L"WakeUp", pacmanTex, Vector2(0.0f, 226.0f), Vector2(32.0f, 32.0f), Vector2::Zero, 4, 0.1f);
+        //animator->PlayAnimation(L"SitDown", false);
         
         Transform* tr = mPlayer->GetComponent<Transform>();
         tr->SetPosition(Vector2(100.0f, 100.0f));
         tr->SetRotation(0.0f);
-        tr->SetScale(Vector2(2.0f, 2.0f));
+        //tr->SetScale(Vector2(2.0f, 2.0f));  //크기는 게임에 알맞게 알아서 조절하면 된다.
 
-        //GameObject* map = object::Instantiate<GameObject>(enums::eLayerType::Player);
-
-        //SpriteRenderer* mapSr = map->AddComponent<SpriteRenderer>();
-        ////mapSr->SetSize(Vector2(3.0f, 3.0f));  
-        //graphics::Texture* mapTex = Resources::Find<graphics::Texture>(L"BUBBLE");
-        //mapSr->SetTexture(mapTex);
 
         //고양이 npc 추가
         Cat* cat= object::Instantiate<Cat>(enums::eLayerType::Animal);
-        graphics::Texture* catTex = Resources::Find<graphics::Texture>(L"CHICKEN");
+        graphics::Texture* catTex = Resources::Find<graphics::Texture>(L"Cat");
         CatScript* catSc = cat->AddComponent<CatScript>();
         Animator* catAnimator = cat->AddComponent<Animator>();
 

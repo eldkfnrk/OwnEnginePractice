@@ -6,7 +6,7 @@
 #include "..\OwnEnginePractice_SOURCE\oepTime.h"
 
 namespace oep {
-	PlayerScript::PlayerScript() : mState(eState::SitDown), mAnimator(nullptr)
+	PlayerScript::PlayerScript() : mState(eState::Idle), mAnimator(nullptr)
 	{
 	}
 
@@ -17,47 +17,10 @@ namespace oep {
 
 	void PlayerScript::Update()
 	{
-		//FSM(Finite-State Machine) 패턴
-		//상태(State)를 기반으로 동작을 제어하는 방식을 구현하기 위한 디자인 패턴
-		//이 패턴은 단 하나의 상태만을 가질 수 있어 상태를 기준으로 어떤 동작을 수행할지 결정하기 때문에 현재 상태만 알 수 있으면 어떤 동작을 수행하려 하는지 
-		//명확히 파악할 수 있고 구현이 쉽다는 장점이 있다. 그래서 이 패턴을 플레이어는 물론 몬스터 AI 등에도 적용시켜 구현해볼 예정이다.
-
-		//모든 프로그램을 만들 때 주의해야 할 것은 무작정 if문을 추가해 나가서 코드를 이해하기 힘들게 하지 않는 것이다.
-		//그러니 중요한 것은 if문을 최대한 안 쓰도록 필요한 경우에만 쓰도록 주의하여야 한다.
-		//if (Input::GetKey(eKeyCode::Right)) {
-		//	Transform* tr = GetOwner()->GetComponent<Transform>();
-		//	Vector2 position = tr->GetPosition();
-		//	position.x += 100.0f * Time::DeltaTime();
-		//	tr->SetPosition(position);
-		//}
-
-		//if (Input::GetKey(eKeyCode::Left)) {
-		//	Transform* tr = GetOwner()->GetComponent<Transform>();
-		//	Vector2 position = tr->GetPosition();
-		//	position.x -= 100.0f * Time::DeltaTime();
-		//	tr->SetPosition(position);
-		//}
-
-		//if (Input::GetKey(eKeyCode::Up)) {
-		//	Transform* tr = GetOwner()->GetComponent<Transform>();
-		//	Vector2 position = tr->GetPosition();
-		//	position.y -= 100.0f * Time::DeltaTime();
-		//	tr->SetPosition(position);
-		//}
-
-		//if (Input::GetKey(eKeyCode::Down)) {
-		//	Transform* tr = GetOwner()->GetComponent<Transform>();
-		//	Vector2 position = tr->GetPosition();
-		//	position.y += 100.0f * Time::DeltaTime();
-		//	tr->SetPosition(position);
-		//}
-		
-		//FSM 패턴은 보통 state마다 행동이 다르기 때문에 switch문을 자주 사용한다.
-		//소소한 꿀팁으로 switch를 입력하고 tab키를 누르면 switch문의 기본형이 자동 완성된다.
 		switch (mState)
 		{
-		case PlayerScript::eState::SitDown:
-			sitDown();
+		case PlayerScript::eState::Idle:
+			idle();
 			break;
 		case PlayerScript::eState::Walk:
 			move();
@@ -66,7 +29,8 @@ namespace oep {
 			break;
 		case PlayerScript::eState::WakeUp:
 			break;
-		case PlayerScript::eState::Grooming:
+		case PlayerScript::eState::GiveWater:
+			giveWater();
 			break;
 		default:
 			break;
@@ -82,8 +46,16 @@ namespace oep {
 	{
 	}
 
-	void PlayerScript::sitDown()
+	void PlayerScript::idle()
 	{
+		if (Input::GetKey(eKeyCode::MLButton)) {
+			mState = eState::GiveWater;
+			mAnimator->PlayAnimation(L"FrontGiveWater");
+
+			//제대로 마우스 커서 위치 정보를 받아오는지 확인하기 위한 테스트 코드
+			//Vector2 mousePos = Input::GetMousePosition();
+		}
+
 		if (Input::GetKey(eKeyCode::Right)) {
 			mState = eState::Walk;
 			mAnimator->PlayAnimation(L"RightWalk");
@@ -110,28 +82,50 @@ namespace oep {
 		Transform* tr = GetOwner()->GetComponent<Transform>();
 		Vector2 position = tr->GetPosition();
 
-		if (Input::GetKey(eKeyCode::Right)) {
-			position.x += 100.0f * Time::DeltaTime();
-		}
+		//if (Input::GetKey(eKeyCode::Right)) {
+		//	position.x += 100.0f * Time::DeltaTime();
+		//}
 
-		else if (Input::GetKey(eKeyCode::Left)) {
-			position.x -= 100.0f * Time::DeltaTime();
-		}
+		//else if (Input::GetKey(eKeyCode::Left)) {
+		//	position.x -= 100.0f * Time::DeltaTime();
+		//}
 
-		else if (Input::GetKey(eKeyCode::Up)) {
-			position.y -= 100.0f * Time::DeltaTime();
-		}
+		//else if (Input::GetKey(eKeyCode::Up)) {
+		//	position.y -= 100.0f * Time::DeltaTime();
+		//}
 
-		else if (Input::GetKey(eKeyCode::Down)) {
-			position.y += 100.0f * Time::DeltaTime();
-		}
+		//else if (Input::GetKey(eKeyCode::Down)) {
+		//	position.y += 100.0f * Time::DeltaTime();
+		//}
 
-		if (Input::GetKeyUp(eKeyCode::Right) || Input::GetKeyUp(eKeyCode::Left) || Input::GetKeyUp(eKeyCode::Up) || Input::GetKeyUp(eKeyCode::Down)) {
-			mState = eState::SitDown;
-			mAnimator->PlayAnimation(L"SitDown", false);
-		}
+		//if (Input::GetKeyUp(eKeyCode::Right) || Input::GetKeyUp(eKeyCode::Left) || Input::GetKeyUp(eKeyCode::Up) || Input::GetKeyUp(eKeyCode::Down)) {
+		//	mState = eState::Idle;
+		//	mAnimator->PlayAnimation(L"Idle", false);
+		//}
 
 		tr->SetPosition(position);
+	}
+
+	void PlayerScript::giveWater()
+	{
+		//이 동작은 애니메이션이 끝나면 종료되도록 하기 위해 애니메이션의 종료 여부를 가지고 온다.
+		if (mAnimator->IsComplete()) {
+			mState = eState::Idle;
+			mAnimator->PlayAnimation(L"Idle");
+		}
+
+		//실제 프로그램의 메모리 영역은 4가지로 나뉘게 된다. 맨 위 영역은 코드 영역으로 작성한 코드들이 올라가는 영역이다. 즉, 함수같은 것들이 저장되는 공간이다.
+		//그 아래의 영역을 데이터 영역이라고 하여 데이터가 저장되는데 전역 변수나 정적 변수가 이곳에 위치한다. 위에서 2번째 영역에 데이터를 올리는 이유는 위에 있어야 
+		//밑에 영역에서 접근할 수 있기 때문이다. 그 아래 영역은 힙이라고 하여 new나 malloc으로 메모리 할당을 한 변수들이 위치한다. 즉, 동적 할당한 것들이 저장되는 공간이다.
+		//맨 아래 영역은 스택 영역으로 지역 변수들이 위치한다. 즉, 선언된 위치에서만 사용할 수 있는 변수들이 저장되는 공간이다.
+		//이것을 통해 기본적인 메모리의 구조를 알게 되었고 그로 인해 알게된 것이 또 하나 있는데 바로 함수도 주소 값이 있다는 것이다.
+		//그리고 이 함수의 주소 값을 저장할 수 있는 타입의 변수를 함수 포인터라고 한다. 사용하는 방법은 아래와 같다.
+		//void Add() 함수가 있다 -> void (*Func1)(); -> Func1=Add;
+		//기본 형태는 "반환형 함수명(매개변수...)" 형태의 함수를 저장할 함수 포인터는 "반환형 (*포인터명)(매개변수 타입...)"으로 값을 할당할 땐 "포인터명=함수명"으로 한다.
+
+		//함수 포인터를 설명한 이유는 애니메이션은 애니메이션만 있는 게 아니라 이에 대응하는 이벤트가 있기 마련이다.
+		//예를 들어 게임에서 땅을 파면 땅을 판 지면이 파져야 하고 흙에 물을 주면 흙은 촉촉히 젖는 등의 동작과 관련된 이벤트가 있다. 그리고 이 이벤트들을 담당하는 함수들이 있을 것이다.
+		//그리고 우리는 그것을 함수 포인터를 이용하여 이 이벤트들을 처리하려고 한다.
 	}
 
 	PlayerScript::~PlayerScript()

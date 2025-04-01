@@ -9,6 +9,7 @@
 #include <algorithm>  //for_each문 사용을 위한 헤더 파일 추가
 #include <string>  //wstring을 사용하기 위한 헤더 파일 추가
 #include <map>  //map(트리)를 사용하기 위한 헤더 파일 추가
+#include <functional>  //함수 포인터를 보다 쉽게 사용하기 위해 정의된 클래스를 사용하기 위한 헤더 파일 추가(함수 포인터 관련 라이브러리)
 
 #include "oepMath.h"  //수학적인 정보나 연산을 사용하기 위한 파일 추가
 
