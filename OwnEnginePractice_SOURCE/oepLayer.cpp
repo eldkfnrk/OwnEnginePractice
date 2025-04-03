@@ -54,6 +54,12 @@ namespace oep {
 	}
 
 	Layer::~Layer() {
-
+		for (GameObject* gameObj : mGameObjects) {
+			if (gameObj == nullptr) {
+				continue;
+			}
+			delete gameObj;
+			gameObj = nullptr;
+		}
 	}
 }

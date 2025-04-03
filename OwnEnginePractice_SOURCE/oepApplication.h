@@ -14,6 +14,8 @@ namespace oep {
 		void LateUpdate();  
 		void Render();  
 
+		void Release();
+
 		HWND GetHwnd() {
 			return mHwnd;
 		}

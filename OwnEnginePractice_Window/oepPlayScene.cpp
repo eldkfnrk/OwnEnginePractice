@@ -36,22 +36,16 @@ namespace oep {
         playerAnimator->CreateAnimation(L"LeftWalk", playerTex, Vector2(1500.0f, 0.0f), Vector2(250.0f, 250.0f), Vector2::Zero, 6, 0.1f);
         playerAnimator->CreateAnimation(L"FrontGiveWater", playerTex, Vector2(0.0f, 2000.0f), Vector2(250.0f, 250.0f), Vector2::Zero, 12, 0.1f);
         playerAnimator->PlayAnimation(L"Idle");
-        //playerAnimator->CreateAnimation(L"", playerTex, Vector2(0.0f, 250.0f), Vector2(250.0f, 250.0f), Vector2::Zero, 8, 0.1f);
-
-        //graphics::Texture* pacmanTex = Resources::Find<graphics::Texture>(L"CHICKEN");
-        //PlayerScript* playerSc = mPlayer->AddComponent<PlayerScript>();
-        //Animator* animator = mPlayer->AddComponent<Animator>();
-
-        ////모든 에니메이션을 가지고 만들어놓고 있어야 한다.
-        //animator->CreateAnimation(L"FrontWalk", pacmanTex, Vector2::Zero, Vector2(32.0f, 32.0f), Vector2::Zero, 4, 0.2f);
-        //animator->CreateAnimation(L"RightWalk", pacmanTex, Vector2(0.0f, 32.0f), Vector2(32.0f, 32.0f), Vector2::Zero, 4, 0.2f);
-        //animator->CreateAnimation(L"BackWalk", pacmanTex, Vector2(0.0f, 64.0f), Vector2(32.0f, 32.0f), Vector2::Zero, 4, 0.2f);
-        //animator->CreateAnimation(L"LeftWalk", pacmanTex, Vector2(0.0f, 96.0f), Vector2(32.0f, 32.0f), Vector2::Zero, 4, 0.2f);
-        //animator->CreateAnimation(L"SitDown", pacmanTex, Vector2(0.0f, 128.0f), Vector2(32.0f, 32.0f), Vector2::Zero, 4, 0.1f);
-        //animator->CreateAnimation(L"Grooming", pacmanTex, Vector2(0.0f, 160.0f), Vector2(32.0f, 32.0f), Vector2::Zero, 4, 0.1f);
-        //animator->CreateAnimation(L"Sleep", pacmanTex, Vector2(0.0f, 192.0f), Vector2(32.0f, 32.0f), Vector2::Zero, 4, 0.1f);
-        //animator->CreateAnimation(L"WakeUp", pacmanTex, Vector2(0.0f, 226.0f), Vector2(32.0f, 32.0f), Vector2::Zero, 4, 0.1f);
-        //animator->PlayAnimation(L"SitDown", false);
+        
+        //함수 포인터를 사용할 때는 함수와 연결을 시켜주어야 한다.
+        //보통 이벤트 관련 함수는 해당 이벤트가 일어낧 오브젝트의 스크립트를 통해 구현이 될 것이다. 함수 포인터를 배울 때 예시는 전역 함수를 가지고 와서 사용하는 것이었는데
+        //지금은 스크립트의 멤버 함수를 애니메이터의 함수 포인터 STL 객체에 연결시키려는 것이기 때문에 std::bind 함수를 사용하여 함수 포인터와 함수를 연결시켜 주어야 한다.
+        //std::bind는 1번쨰 인자로 함수명을 받아서 함수 포인터에 연결할 함수를 결정하고 2번째 인자로 그 함수를 호출할 객체의 주소를 받는다.
+        //아래의 구문을 설명하면 playerScript 객체의 AttackEffect 함수를 함수 포인터에 연결하겠다는 의미
+        //이벤트 함수의 위치는 이 이벤트가 적용될 오브젝트 객체에 있을 수도 있고 오브젝트의 행동을 결정하는 스크립트 객체에 있을 수도 있다.
+        //1번째 인자에 &를 쓰는 이유는 여러 번 설명했지만 &가 없으면 복사본을 넘기는 것이어서 속도가 느리지만 &를 써서 원본을 직접 넘기면 복사를 할 필요가 없으니 속도가 빠르기 때문이다.
+        //만약 전역 함수를 std::bind하려 하면 2번째 인자가 필요 없다.(왜냐하면, 모두 접근이 가능하기 때문에 그냥 연결만 하면 되기 때문이다.)
+        playerAnimator->GetCompleteEvent(L"FrontGiveWater") = std::bind(&PlayerScript::AttackEffect, playerScript);  //해당 애니메이션의 컴플리트 이벤트 설정
         
         Transform* tr = mPlayer->GetComponent<Transform>();
         tr->SetPosition(Vector2(100.0f, 100.0f));

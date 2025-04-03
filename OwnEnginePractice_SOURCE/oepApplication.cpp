@@ -2,6 +2,7 @@
 #include "oepInput.h"
 #include "oepTime.h"
 #include "oepSceneManager.h"
+#include "oepResources.h"
 
 namespace oep {
 	Application::Application() : mHwnd(nullptr), mHdc(nullptr), mWidth(0), mHeight(0), mBackHdc(NULL), mBackBuffer(NULL) {
@@ -42,6 +43,11 @@ namespace oep {
 		Time::Render(mBackHdc);
 
 		copyRenderTarger(mBackHdc, mHdc);
+	}
+
+	void Application::Release() {
+		SceneManager::Release();
+		Resources::Release();
 	}
 
 	Application::~Application() {

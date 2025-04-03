@@ -6,8 +6,6 @@ namespace oep {
 	class Resources
 	{
 	public:
-		Resources();
-
 		template <typename T>
 		static T* Find(const std::wstring& key) {  
 			auto iter = mResources.find(key);
@@ -39,7 +37,8 @@ namespace oep {
 			return resource;
 		}
 
-		~Resources();
+		//SceneManager클래스처럼 이 클래스도 따로 객체를 만드는 클래스가 아니기 때문에 소멸자가 없으니 따로 메모리 해제를 시킬 함수 생성
+		static void Release();
 
 	private:
 		static std::map<std::wstring, Resource*> mResources;  

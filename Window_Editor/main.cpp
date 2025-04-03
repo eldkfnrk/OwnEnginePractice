@@ -38,6 +38,13 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     UNREFERENCED_PARAMETER(hPrevInstance);
     UNREFERENCED_PARAMETER(lpCmdLine);
 
+    //메모리 릭(누수) 검사 코드
+    //프로그램을 실행시킨 다음 종료시키면 해제하지 않은 메모리와 그 크기들을 출력에 보여준다.
+    _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+
+    //메모리 릭이 발생한 메모리가 할당된 위치를 유추할 수 있도록 오류 코드로 이동(인자로는 메모리 생성 순서를 넣는데 이는 위의 코드에서 출력해준 내용에 나온다.)
+    //_CrtSetBreakAlloc(662);
+
     // TODO: 여기에 코드를 입력합니다.
 
     // 전역 문자열을 초기화합니다.
@@ -73,7 +80,9 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         }
     }
 
+    //씬에 사용된 Gdiplus들을 먼저 메모리 해제시킨 다음에 씬매니저에 저장된 모든 씬들의 메모리를 해제(메모리 해제 순서도 중요하기 때문에 이 순서를 지켜주어야 한다.)
     Gdiplus::GdiplusShutdown(gpToken);  //gpToken 메모리 해제
+    application.Release();  //씬매니저의 씬들의 메모리 해제
 
     return (int) msg.wParam;
 }

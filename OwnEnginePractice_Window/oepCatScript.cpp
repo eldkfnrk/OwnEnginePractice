@@ -52,7 +52,7 @@ namespace oep {
 
 		if (mTime > 1.5f) {
 			mState = eState::Move;
-			int direction = rand() % 4;  //앉아있다가 이동할 때의 방향을 랜덤하게 하기 위한 랜덤 변수(이 값은 완전한 랜덤 값은 아니니 실제 게임에선 완전한 랜덤 값 사용)
+			int direction = rand() % 4;  
 			mDirection = (eDirection)direction;
 
 			playWalkAnimationByDirection(mDirection);
@@ -66,7 +66,7 @@ namespace oep {
 		mTime += Time::DeltaTime();
 
 		if (mTime > 1.5f) {
-			int isSleep = rand() % 2;  //랜덤하게 자는지 안 자는지 결정(0 - 안 잔다, 1 - 잔다)
+			int isSleep = rand() % 2;  
 			
 			if (isSleep == 1) {
 				mState = eState::LayDown;

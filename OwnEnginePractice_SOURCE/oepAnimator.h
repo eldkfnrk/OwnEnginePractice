@@ -6,34 +6,32 @@ namespace oep {
 	class Animator : public Component
 	{
 	public:
-		struct Event  //이벤트 관련된 것들을 모아놓을 구조체
+		//이러한 이벤트 시스템을 spine event이라 하는 시스템에서 디폴트로 사용되고 있다.
+		//이걸 사용하는 이유는 픽셀로 일일히 그려서 애니메이션을 제작하는 것이 번거롭고 귀찮은 작업인데 이를 더 쉽게 해줄 수 있기 때문이다.
+		//그리고 이벤트 시스템은 해당 시스템의 기본적으로 들어가 있기 때문에 추가
+		
+		struct Event  
 		{
-			//값을 대입할 때도 그냥 =연산자를 쓰는 것이 아니라 std::move()를 이용하여 넣어주어야 한다. 그러나 매번 이를 해주기는 귀찮으니 이 동작을 연산자 오버로딩하여
-			//대입 연산자를 사용해 보기에도 편하고 쉽게 사용할 수 있도록 =연산자 오버로딩을 해준다.
 			void operator=(std::function<void()> func) {
 				mEvent = std::move(func);
 			}
 
-			//보통 아래와 같이 정의한 객체는 그냥 이름만 가지고 사용한다. 그러나 이 객체를 함수처럼 사용하면 좀 더 편하게 사용할 수 있을 것이다.
-			//그래서 정의한 함수 포인터를 사용할 때 함수처럼 사용할 수 있도록 ()연산자를 오버로딩 해준다. 
-			//익숙하지 않거나 오래되서 까먹은 경우 변수로 착각할 수 있으니 함수인 것을 명확히 보여주기 위해 사용하는 것도 있다.
 			void operator()() {
-				//함수 포인터와 연결된 함수가 있을 때만 동작해야 한다.
 				if (mEvent) {  
-					mEvent;  //함수처럼 동작시킬 뿐 실제로는 이와 같이 동작하는 것이다.
+					mEvent();  //함수 호출(()가 없으면 객체 호출)
 				}
 			}
 
-			//STL에서 함수 포인터를 사용하는 방법(함수 포인터를 STL로 객체화 시켜놓은 것)
-			//<>안에 함수 포인터의 자료형과 인자 타입을 넣어주는 것이다.(보통 게임에선 데이터 전달보다는 각 동작 실행이 많아서 주로 void형을 사용할 것으로 예상)
-			std::function<void()> mEvent;  //void (*StartEvent)(); 이 함수 포인터와 동일한데 STL을 이용하는 것이 좀 더 가독성이 좋다.(취향대로 사용하면 된다.)
+			std::function<void()> mEvent;  
 		};
 
 		struct Events
 		{
-			Event mStartEvent;  //시작 이벤트
-			Event mCompleteEvent;  //완료 이벤트
-			Event mEndEvent;  //종료 이벤트
+			//모든 애니메이션은 이 이벤트를 가지고 있는 것이다.
+			//애니메이션 시작 시 스타트 이벤트를 애니메이션이 끝나면 컴플리트 이벤트를 다른 애니메이션으로 바뀌면 기존 애니메이션에 엔드 이벤트가 동작하는 원리
+			Event startEvent;  //시작 이벤트
+			Event completeEvent;  //완료 이벤트
+			Event endEvent;  //종료 이벤트
 		};
 
 		Animator();
@@ -53,6 +51,14 @@ namespace oep {
 			return mActiveAnimation->IsComplete();
 		}
 
+		//이벤트를 찾는 함수
+		Events* FindEvents(const std::wstring& name);
+
+		//각 애니메이션의 이벤트들을 가지고 오는 함수(자료형이 STL의 함수 포인터를 사용하기 위한 객체형이기 때문에 그대로 사용하여야 한다.)
+		std::function<void()>& GetStartEvent(const std::wstring& name);  //&를 사용하는 것은 복사가 아닌 참조 즉, 원본을 가지고 오기 위해서 참조형을 사용하는 것이다.
+		std::function<void()>& GetCompleteEvent(const std::wstring& name);
+		std::function<void()>& GetEndEvent(const std::wstring& name);
+
 		~Animator();
 
 	private:
@@ -62,8 +68,6 @@ namespace oep {
 
 		bool mbLoop;  //애니메이션이 계속 반복 재생할지 여부
 
-		//이벤트
-		//각 애니메이션마다 이벤트들을 가지고 있어야 하기 때문에 동일한 키 값을 가지는 트리로 애니메이션마다의 이벤트 저장
-		std::map<std::wstring, Events> mEvents;
+		std::map<std::wstring, Events*> mEvents;
 	};
 }
