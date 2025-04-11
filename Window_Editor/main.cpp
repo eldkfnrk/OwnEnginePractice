@@ -82,7 +82,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
     //씬에 사용된 Gdiplus들을 먼저 메모리 해제시킨 다음에 씬매니저에 저장된 모든 씬들의 메모리를 해제(메모리 해제 순서도 중요하기 때문에 이 순서를 지켜주어야 한다.)
     Gdiplus::GdiplusShutdown(gpToken);  //gpToken 메모리 해제
-    application.Release();  //씬매니저의 씬들의 메모리 해제
+    application.Release();  //씬매니저의 씬들과 리소스들의 메모리 해제
 
     return (int) msg.wParam;
 }

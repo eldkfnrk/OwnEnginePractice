@@ -4,6 +4,10 @@
 #include "..\OwnEnginePractice_SOURCE\oepAnimator.h"
 #include "..\OwnEnginePractice_SOURCE\oepInput.h"
 #include "..\OwnEnginePractice_SOURCE\oepTime.h"
+#include "..\OwnEnginePractice_SOURCE\oepObject.h"
+#include "..\OwnEnginePractice_SOURCE\oepResources.h"
+#include "oepCat.h"
+#include "oepCatScript.h"
 
 namespace oep {
 	PlayerScript::PlayerScript() : mState(eState::Idle), mAnimator(nullptr)
@@ -50,7 +54,28 @@ namespace oep {
 	{
 		if (Input::GetKey(eKeyCode::MLButton)) {
 			mState = eState::GiveWater;
-			mAnimator->PlayAnimation(L"FrontGiveWater");
+			mAnimator->PlayAnimation(L"FrontGiveWater", false);
+
+			//고양이 npc 추가
+			Cat* cat = object::Instantiate<Cat>(enums::eLayerType::Animal);
+			graphics::Texture* catTex = Resources::Find<graphics::Texture>(L"Cat");
+			CatScript* catSc = cat->AddComponent<CatScript>();
+			Animator* catAnimator = cat->AddComponent<Animator>();
+
+			//모든 에니메이션을 가지고 만들어놓고 있어야 한다.
+			catAnimator->CreateAnimation(L"DownMove", catTex, Vector2::Zero, Vector2(32.0f, 32.0f), Vector2::Zero, 4, 0.2f);
+			catAnimator->CreateAnimation(L"RightMove", catTex, Vector2(0.0f, 32.0f), Vector2(32.0f, 32.0f), Vector2::Zero, 4, 0.2f);
+			catAnimator->CreateAnimation(L"UpMove", catTex, Vector2(0.0f, 64.0f), Vector2(32.0f, 32.0f), Vector2::Zero, 4, 0.2f);
+			catAnimator->CreateAnimation(L"LeftMove", catTex, Vector2(0.0f, 96.0f), Vector2(32.0f, 32.0f), Vector2::Zero, 4, 0.2f);
+			catAnimator->CreateAnimation(L"SitDown", catTex, Vector2(0.0f, 128.0f), Vector2(32.0f, 32.0f), Vector2::Zero, 4, 0.1f);
+			catAnimator->CreateAnimation(L"Grooming", catTex, Vector2(0.0f, 160.0f), Vector2(32.0f, 32.0f), Vector2::Zero, 4, 0.1f);
+			catAnimator->CreateAnimation(L"LayDown", catTex, Vector2(0.0f, 192.0f), Vector2(32.0f, 32.0f), Vector2::Zero, 4, 0.1f);  //lay down - 눕다
+			catAnimator->CreateAnimation(L"WakeUp", catTex, Vector2(0.0f, 226.0f), Vector2(32.0f, 32.0f), Vector2::Zero, 4, 0.1f);
+			catAnimator->PlayAnimation(L"SitDown", false);
+
+			cat->GetComponent<Transform>()->SetPosition(Vector2(200.0f, 200.0f));
+			cat->GetComponent<Transform>()->SetRotation(0.0f);
+			cat->GetComponent<Transform>()->SetScale(Vector2(2.0f, 2.0f));
 		}
 
 		if (Input::GetKey(eKeyCode::Right)) {

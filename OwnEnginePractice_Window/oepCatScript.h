@@ -45,5 +45,6 @@ namespace oep {
 		class Animator* mAnimator; 
 		float mTime;
 		eDirection mDirection;
+		float mDeathTime;  //오브젝트를 삭제시킬 시간을 측정하기 위한 변수
 	};
 }

@@ -23,6 +23,9 @@ namespace oep {
 		Update();
 		LateUpdate();
 		Render();
+
+		//모든 동작이 다 끝난 후 삭제할 대상들을 일괄 삭제(이러면 한 프레임 진행 완료 후 다음 프레임이 진행되기 전에 모두 삭제할 수 있다.)
+		Destroy();
 	}
 
 	void Application::Update() {
@@ -43,6 +46,10 @@ namespace oep {
 		Time::Render(mBackHdc);
 
 		copyRenderTarger(mBackHdc, mHdc);
+	}
+
+	void Application::Destroy() {
+		SceneManager::Destroy();
 	}
 
 	void Application::Release() {

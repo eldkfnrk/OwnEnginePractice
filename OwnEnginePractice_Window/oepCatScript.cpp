@@ -1,13 +1,13 @@
 #include "oepCatScript.h"
 #include "..\OwnEnginePractice_SOURCE\oepGameObject.h"
-//#include "..\OwnEnginePractice_SOURCE\oepTransform.h"
 #include "..\OwnEnginePractice_SOURCE\oepAnimator.h"
 #include "..\OwnEnginePractice_SOURCE\oepInput.h"
 #include "..\OwnEnginePractice_SOURCE\oepTime.h"
+#include "..\OwnEnginePractice_SOURCE\oepObject.h"
 #include "..\OwnEnginePractice_SOURCE\CommonInclude.h"
 
 namespace oep {
-	CatScript::CatScript() : mState(eState::SitDown), mAnimator(nullptr), mTime(0.0f), mDirection(eDirection::End)
+	CatScript::CatScript() : mState(eState::SitDown), mAnimator(nullptr), mTime(0.0f), mDirection(eDirection::End), mDeathTime(0.0f)
 	{
 	}
 
@@ -18,6 +18,16 @@ namespace oep {
 
 	void CatScript::Update()
 	{
+		mDeathTime += Time::DeltaTime();
+
+		if (mDeathTime > 6.0f) {  //6초가 지나면 해당 오브젝트를 삭제 대상으로 지정
+			object::Destroy(GetOwner());
+		}
+
+		if (mAnimator == nullptr) {
+			mAnimator = GetOwner()->GetComponent<Animator>();
+		}
+
 		switch (mState)
 		{
 		case eState::SitDown:

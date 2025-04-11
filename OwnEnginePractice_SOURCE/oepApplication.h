@@ -14,7 +14,8 @@ namespace oep {
 		void LateUpdate();  
 		void Render();  
 
-		void Release();
+		void Destroy();  //프로그램 중간에 메모리를 해제시켜주기 위한 함수
+		void Release();  //프로그램을 종료시킬 때 할당된 모든 메모리를 해제시켜주기 위한 함수
 
 		HWND GetHwnd() {
 			return mHwnd;
