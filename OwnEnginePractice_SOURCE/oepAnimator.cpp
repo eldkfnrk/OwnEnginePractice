@@ -1,4 +1,5 @@
 #include "oepAnimator.h"
+#include "oepResources.h"
 
 namespace oep {
     Animator::Animator()
@@ -18,15 +19,12 @@ namespace oep {
 
             Events* events = FindEvents(mActiveAnimation->GetName());
 
-            if (mActiveAnimation->IsComplete() == true/* && mbLoop == true*/) {
-                if (events) {  //이벤트가 있을 때만 이벤트 호출(이벤트가 없으면 호출이 불가하니 검사를 해주어야 한다.)
-                    //애니메이션이 컴플리트되었으니 컴플리트 이벤트가 실행이 되어야 한다.
-                    //컴플리트 이벤트는 애니메이션이 컴플리트
-                    events->completeEvent();  //원래는 객체를 호출해야 하지만 이렇게 함수처럼 쓸 수 있도록 연산자 오버로딩을 진행해서 이 구문이 가능해졌다.
+            if (mActiveAnimation->IsComplete() == true) {
+                if (events) { 
+                    events->completeEvent();  
                 }
 
                 if (mbLoop == true) {
-                    //원래는 하나의 if문만 있어도 되었지만 지금은 루프와 상관없이 컴플리트 이벤트가 실행되어야 하니 따로 루프 여부를 확인
                     mActiveAnimation->Reset();
                 }
             }
@@ -72,6 +70,57 @@ namespace oep {
         mAnimations.insert(std::make_pair(name, animation));
     }
 
+    void Animator::CreateAnimationByFolder(const std::wstring& name, const std::wstring& path, Vector2 offset, float duration)
+    {
+        Animation* animation = nullptr;
+        animation = FindAnimation(name);
+        if (animation != nullptr) {  //이미 애니메이션이 있는 경우
+            return;
+        }
+
+        //파일을 불러오는 것은 API 함수를 이용하면 되지만 여기서는 C++17에서 추가한 filesystem이라는 것을 사용하여 불러올 것이다.
+        std::filesystem::path fs(path);  //애니메이션 폴더의 경로 저장
+        std::vector<graphics::Texture*> images = {};  //경로에 있는 이미지를 저장할 벡터
+        int fileCount = 0;  //폴더 안에 있는 파일의 개수를 확인을 위한 변수
+
+        for (auto& p : std::filesystem::recursive_directory_iterator(fs)) {
+            //폴더 내에 있는 이미지들을 가리키는 반복자를 반환하는 함수로 폴더 내에 모든 이미지 파일을 순회할 수 있다.
+            //파일 시스템 라이브러리를 사용하는 이유가 이것인데 API 함수를 사용하면 아래와 같은 것들을 우리가 직접 정의해야 하는데 파일 시스템은 그런 번거로움이 없다.
+            std::wstring fileName = p.path().filename();  //파일명을 가지고 온다.
+            std::wstring fullName = p.path();  //파일의 실제 경로(폴더 경로 + 파일명)를 가지고 온다.
+
+            //이제 해당 파일의 이름과 경로를 얻었으니 이를 가지고 리소스를 로드해준다.
+            //리소스의 이름은 파일 이름으로 경로는 구한 실제 파일의 경로를 찾아서 로드
+            graphics::Texture* texture = Resources::Load<graphics::Texture>(fileName, fullName);
+
+            //이미지를 저장하는 벡터에 삽입
+            images.push_back(texture);
+
+            fileCount++;
+        }
+
+        //시트의 크기
+        UINT sheetWidth = images[0]->GetWidth() * fileCount;  //스프라이트 시트는 이미지들이 가로로 연결된 상태로 생성될 것이기 때문에 파일 갯수를 곱한다.
+        UINT sheetHeight = images[0]->GetHeight();
+
+        //애니메이션에 사용되는 이미지의 크기
+        UINT imageWidth = images[0]->GetWidth();
+        UINT imageHeight = images[0]->GetHeight();
+
+        graphics::Texture* spriteSheet = graphics::Texture::Create(name, sheetWidth, sheetHeight);  //인자로 넘긴 크기의 빈 이미지 파일 생성
+
+        //빈 이미지 파일까지 생성했으니 해당 이미지에 애니메이션에 사용할 이미지들을 순서대로 배치시켜 그려주어야 한다.
+        for (size_t i = 0; i < images.size(); i++) {
+            //이미지를 복사하는 함수
+            //이 함수는 이미지를 원하는 위치에 원하는 크기만큼 원본에 원하는 부분을 복사할 수 있기 때문에 여러 개의 그림을 하나의 이미지 파일에 복사할 수 있다.
+            BitBlt(spriteSheet->GetHdc(), imageWidth * i, 0, imageWidth, imageHeight, images[i]->GetHdc(), 0, 0, SRCCOPY);
+        }
+
+        //스프라이트 시트를 만든 이유는 이 시트를 이용해서 애니메이션를 만들기 위함으로 해당 시트를 이용해 애니메이션을 만들도록 함수를 호출
+        //2D 애니메이션은 스프라이트 시트를 가지고 만들어야 하기 때문에 스프라이트 시트를 만드는 작업이 필요했다.
+        CreateAnimation(name, spriteSheet, Vector2(0.0f, 0.0f), Vector2(imageWidth, imageHeight), offset, fileCount, duration);
+    }
+
     Animation* Animator::FindAnimation(const std::wstring& name)
     {
         auto iter = mAnimations.find(name);
@@ -91,34 +140,25 @@ namespace oep {
             return;
         }
 
-        //순서가 굉장히 중요하다. 아래의 순서대로 진행되어야 한다.
-        //기존 애니메이션의 엔드 이벤트 -> 새 애니메이션의 스타트 이벤트 -> 새 애니메이션 활성화
-
-        //애니메이션이 새로 플레이될 때에도 기존 애니메이션의 이벤트가 발생
         if (mActiveAnimation) {
             Events* currentEvents = FindEvents(mActiveAnimation->GetName());
             if (currentEvents) {
-                //기존 애니메이션은 끝내고 다음 애니메이션을 호출하는 것이기 때문에 기존 애니메이션의 엔드 이벤트가 먼저 발생
                 currentEvents->endEvent();
             }
         }
 
-        //새로 시작할 애니메이션의 이벤트를 가지고 와야 한다.
         Events* nextEvents = FindEvents(animation->GetName());
         if (nextEvents) {
-            //지금 활성화된 애니메이션은 이제 시작을 하는 것이니 스타트 이벤트 호출
-            //애니메이션이 재생되기 전에 이벤트가 일어나야 하니 순서가 중요하다.(스타트 이벤트 -> 애니메이션 시작)
             nextEvents->startEvent();
         }
 
         mActiveAnimation = animation;
-        mActiveAnimation->Reset();  //애니메이션 1을 재생하던 중 애니메이션 2를 재생하려 할 때 재생 중이던 애니메이션이 동작하면서 바뀐 값을 초기화해주어야 하기 때문에 리셋 
+        mActiveAnimation->Reset();  
         mbLoop = loop;  
     }
 
     Animator::Events* Animator::FindEvents(const std::wstring& name)
     {
-        //애니메이션을 찾는 동작과 크게 다른 것은 없다. 찾는 주체가 애니메이션에서 이벤트로 변한 것 뿐이다
         auto iter = mEvents.find(name);
 
         if (iter == mEvents.end()) {

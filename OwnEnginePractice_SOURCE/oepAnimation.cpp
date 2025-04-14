@@ -59,20 +59,27 @@ namespace oep {
 		graphics::Texture::eTextureType type = mTexture->GetTextureType();  //텍스쳐의 이미지 파일의 형태를 가져온다.
 
 		if (type == graphics::Texture::eTextureType::Bmp) {
-			//이전 커밋에서 만들었던 동작은 텍스쳐 안에서 또 나누어서 사용하는 스프라이트 방식의 경우 사용할 수 있는 방식이기 때문에 
-			//텍스쳐 타입이 bmp 파일인 경우에만 동작할 수 있기 때문에 텍스쳐 타입이 bmp인 경우에만 동작하도록 수정
-			BLENDFUNCTION func = {};
-			func.BlendOp = AC_SRC_OVER;
-			func.BlendFlags = 0;
-			func.AlphaFormat = AC_SRC_ALPHA;
-			func.SourceConstantAlpha = 225;  //0(transparent-투명) ~ 255(Opaque-불투명) 의 값으로 설정 가능
-
-			//Sprite sprite = mAnimationSheet[mIndex];
 			HDC imgHdc = mTexture->GetHdc();
 
-			AlphaBlend(hdc, pos.x - (sprite.size.x / 2.0f), pos.y - (sprite.size.y / 2.0f)
-				, sprite.size.x * scale.x, sprite.size.y * scale.y, imgHdc
-				, sprite.leftTop.x, sprite.leftTop.y, sprite.size.x, sprite.size.y, func);
+			//알파 채널이 있으면 32비트짜리 비트맵이고 없으면 24비트짜리 비트맵이다.
+			if (mTexture->IsAlpha()) {
+				//32비트짜리 알파 채널이 있는 비트맵을 화면에 출력
+				BLENDFUNCTION func = {};
+				func.BlendOp = AC_SRC_OVER;
+				func.BlendFlags = 0;
+				func.AlphaFormat = AC_SRC_ALPHA;
+				func.SourceConstantAlpha = 255;  //0(transparent-투명) ~ 255(Opaque-불투명) 의 값으로 설정 가능
+
+				AlphaBlend(hdc, pos.x - (sprite.size.x / 2.0f) + sprite.offset.x, pos.y - (sprite.size.y / 2.0f) + sprite.offset.y
+					, sprite.size.x * scale.x, sprite.size.y * scale.y, imgHdc
+					, sprite.leftTop.x, sprite.leftTop.y, sprite.size.x, sprite.size.y, func);
+			}
+			else {
+				//24비트짜리 알파 채널이 없는 기본 비트맵을 화면에 출력
+				TransparentBlt(hdc, pos.x - (sprite.size.x / 2.0f) + sprite.offset.x, pos.y - (sprite.size.y / 2.0f) + sprite.offset.y
+					, sprite.size.x * scale.x, sprite.size.y * scale.y
+					, imgHdc, sprite.leftTop.x, sprite.leftTop.y, sprite.size.x, sprite.size.y, RGB(255, 0, 255));
+			}
 		}
 		else if (type == graphics::Texture::eTextureType::Png) {
 			Gdiplus::ImageAttributes imgAttributes = {};  //이미지의 속성을 저장하는 구조체

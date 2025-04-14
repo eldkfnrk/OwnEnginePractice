@@ -6,10 +6,6 @@ namespace oep {
 	class Animator : public Component
 	{
 	public:
-		//이러한 이벤트 시스템을 spine event이라 하는 시스템에서 디폴트로 사용되고 있다.
-		//이걸 사용하는 이유는 픽셀로 일일히 그려서 애니메이션을 제작하는 것이 번거롭고 귀찮은 작업인데 이를 더 쉽게 해줄 수 있기 때문이다.
-		//그리고 이벤트 시스템은 해당 시스템의 기본적으로 들어가 있기 때문에 추가
-		
 		struct Event  
 		{
 			void operator=(std::function<void()> func) {
@@ -27,8 +23,6 @@ namespace oep {
 
 		struct Events
 		{
-			//모든 애니메이션은 이 이벤트를 가지고 있는 것이다.
-			//애니메이션 시작 시 스타트 이벤트를 애니메이션이 끝나면 컴플리트 이벤트를 다른 애니메이션으로 바뀌면 기존 애니메이션에 엔드 이벤트가 동작하는 원리
 			Event startEvent;  //시작 이벤트
 			Event completeEvent;  //완료 이벤트
 			Event endEvent;  //종료 이벤트
@@ -44,6 +38,11 @@ namespace oep {
 		void CreateAnimation(const std::wstring& name, graphics::Texture* spriteSheet
 			, Vector2 leftTop, Vector2 size, Vector2 offset, UINT spriteLength, float duration);
 
+		//애니메이션을 만들 때는 지금까지 모두 그려져 있는 스프라이트 시트를 가지고 와서 사용을 했는데 이 방법 말고 애니메이션에 관련된 이미지들을 한 폴더에 모아서
+		//사용하는 애니메이션 폴더 구조를 추가해서 사용할 수 있도록 할 것이다.
+		//인자로 애니메이션 이름, 불러올 애니메이션 폴더 경로, 오프셋, 다음 장으로 넘길 주기를 받을 것이다.
+		void CreateAnimationByFolder(const std::wstring& name, const std::wstring& path, Vector2 offset, float duration);
+
 		Animation* FindAnimation(const std::wstring& name);
 		void PlayAnimation(const std::wstring& name, bool loop = true);
 
@@ -51,10 +50,8 @@ namespace oep {
 			return mActiveAnimation->IsComplete();
 		}
 
-		//이벤트를 찾는 함수
 		Events* FindEvents(const std::wstring& name);
 
-		//각 애니메이션의 이벤트들을 가지고 오는 함수(자료형이 STL의 함수 포인터를 사용하기 위한 객체형이기 때문에 그대로 사용하여야 한다.)
 		std::function<void()>& GetStartEvent(const std::wstring& name);  //&를 사용하는 것은 복사가 아닌 참조 즉, 원본을 가지고 오기 위해서 참조형을 사용하는 것이다.
 		std::function<void()>& GetCompleteEvent(const std::wstring& name);
 		std::function<void()>& GetEndEvent(const std::wstring& name);

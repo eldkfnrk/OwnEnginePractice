@@ -37,6 +37,19 @@ namespace oep {
 			return resource;
 		}
 
+		//프로그램이 실행되자마자 추가하는 것이 아닌 실행 중이던 중에 리소스를 추가하기 위한 함수
+		static void Insert(const std::wstring& key, Resource* resource) {
+			if (key == L"") {
+				return;
+			}
+			
+			if (resource == nullptr) {
+				return;
+			}
+
+			mResources.insert(std::make_pair(key, resource));
+		}
+
 		//SceneManager클래스처럼 이 클래스도 따로 객체를 만드는 클래스가 아니기 때문에 소멸자가 없으니 따로 메모리 해제를 시킬 함수 생성
 		static void Release();
 
