@@ -29,3 +29,4 @@
 #include "oepEnums.h"  //열거형을 모아놓은 헤더 파일
 
 #include <time.h>
+#include <math.h>  //수학 관련 함수들을 사용하기 위한 헤더 파일

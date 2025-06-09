@@ -11,6 +11,6 @@ namespace oep {
 		void Render(HDC hdc) override;
 
 	private:
-
+		
 	};
 }

@@ -40,14 +40,14 @@ namespace oep {
         playerAnimator->GetCompleteEvent(L"FrontGiveWater") = std::bind(&PlayerScript::AttackEffect, playerScript);  //해당 애니메이션의 컴플리트 이벤트 설정
         
         Transform* tr = mPlayer->GetComponent<Transform>();
-        tr->SetPosition(Vector2(100.0f, 100.0f));
+        tr->SetPosition(Vector2(300.0f, 250.0f));
         tr->SetRotation(0.0f);
 
         //고양이 npc 추가
-        Cat* cat= object::Instantiate<Cat>(enums::eLayerType::Animal);
+        //Cat* cat= object::Instantiate<Cat>(enums::eLayerType::Animal);
         //graphics::Texture* catTex = Resources::Find<graphics::Texture>(L"Cat");
-        CatScript* catSc = cat->AddComponent<CatScript>();
-        Animator* catAnimator = cat->AddComponent<Animator>();
+        //CatScript* catSc = cat->AddComponent<CatScript>();
+        //Animator* catAnimator = cat->AddComponent<Animator>();
 
         //모든 에니메이션을 가지고 만들어놓고 있어야 한다.
         //catAnimator->CreateAnimation(L"DownMove", catTex, Vector2::Zero, Vector2(32.0f, 32.0f), Vector2::Zero, 4, 0.2f);
@@ -60,16 +60,16 @@ namespace oep {
         //catAnimator->CreateAnimation(L"WakeUp", catTex, Vector2(0.0f, 226.0f), Vector2(32.0f, 32.0f), Vector2::Zero, 4, 0.1f);
         //catAnimator->PlayAnimation(L"SitDown", false);
 
-        catAnimator->CreateAnimationByFolder(L"MushroomIdle", L"..\\Resources\\Mushroom", Vector2::Zero, 0.1f);
-        catAnimator->PlayAnimation(L"MushroomIdle");
+        //catAnimator->CreateAnimationByFolder(L"MushroomIdle", L"..\\Resources\\Mushroom", Vector2::Zero, 0.1f);
+        //catAnimator->PlayAnimation(L"MushroomIdle");
 
-        cat->GetComponent<Transform>()->SetPosition(Vector2(300.0f, 300.0f));
+        //cat->GetComponent<Transform>()->SetPosition(Vector2(300.0f, 300.0f));
 
-        GameObject* sheet = object::Instantiate<GameObject>(enums::eLayerType::Player);
-        SpriteRenderer* sheetSR = sheet->AddComponent<SpriteRenderer>();
+        //GameObject* sheet = object::Instantiate<GameObject>(enums::eLayerType::Player);
+        //SpriteRenderer* sheetSR = sheet->AddComponent<SpriteRenderer>();
 
-        graphics::Texture* mushroomTex = Resources::Find<graphics::Texture>(L"MushroomIdleImage");
-        sheetSR->SetTexture(mushroomTex);
+        //graphics::Texture* mushroomTex = Resources::Find<graphics::Texture>(L"MushroomIdleImage");
+        //sheetSR->SetTexture(mushroomTex);
 
         //Transform* tr1 = cat->GetComponent<Transform>();
         //tr1->SetPosition(Vector2(200.0f, 200.0f));

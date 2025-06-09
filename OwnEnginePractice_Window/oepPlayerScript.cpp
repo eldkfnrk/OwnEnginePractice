@@ -62,6 +62,8 @@ namespace oep {
 			CatScript* catSc = cat->AddComponent<CatScript>();
 			Animator* catAnimator = cat->AddComponent<Animator>();
 
+			catSc->SetPlayer(GetOwner());
+
 			//모든 에니메이션을 가지고 만들어놓고 있어야 한다.
 			catAnimator->CreateAnimation(L"DownMove", catTex, Vector2::Zero, Vector2(32.0f, 32.0f), Vector2::Zero, 4, 0.2f);
 			catAnimator->CreateAnimation(L"RightMove", catTex, Vector2(0.0f, 32.0f), Vector2(32.0f, 32.0f), Vector2::Zero, 4, 0.2f);
@@ -73,9 +75,16 @@ namespace oep {
 			catAnimator->CreateAnimation(L"WakeUp", catTex, Vector2(0.0f, 226.0f), Vector2(32.0f, 32.0f), Vector2::Zero, 4, 0.1f);
 			catAnimator->PlayAnimation(L"SitDown", false);
 
-			cat->GetComponent<Transform>()->SetPosition(Vector2(200.0f, 200.0f));
-			cat->GetComponent<Transform>()->SetRotation(0.0f);
+			Transform* tr = GetOwner()->GetComponent<Transform>();
+
+			cat->GetComponent<Transform>()->SetPosition(tr->GetPosition());
 			cat->GetComponent<Transform>()->SetScale(Vector2(2.0f, 2.0f));
+
+			//마우스의 위치를 가지고 온다. 그래야 마우스의 방향에 맞게 총알이 해당 각도로 발사될 수 있다.
+			Vector2 mousePos = Vector2::Zero;
+			mousePos = Input::GetMousePosition();
+
+			catSc->SetDest(mousePos);
 		}
 
 		if (Input::GetKey(eKeyCode::Right)) {
@@ -138,6 +147,35 @@ namespace oep {
 
 	void PlayerScript::AttackEffect()
 	{
+		////고양이 npc 추가
+		//Cat* cat = object::Instantiate<Cat>(enums::eLayerType::Animal);
+		//graphics::Texture* catTex = Resources::Find<graphics::Texture>(L"Cat");
+		//CatScript* catSc = cat->AddComponent<CatScript>();
+		//Animator* catAnimator = cat->AddComponent<Animator>();
+
+		//catSc->SetPlayer(GetOwner());
+
+		////모든 에니메이션을 가지고 만들어놓고 있어야 한다.
+		//catAnimator->CreateAnimation(L"DownMove", catTex, Vector2::Zero, Vector2(32.0f, 32.0f), Vector2::Zero, 4, 0.2f);
+		//catAnimator->CreateAnimation(L"RightMove", catTex, Vector2(0.0f, 32.0f), Vector2(32.0f, 32.0f), Vector2::Zero, 4, 0.2f);
+		//catAnimator->CreateAnimation(L"UpMove", catTex, Vector2(0.0f, 64.0f), Vector2(32.0f, 32.0f), Vector2::Zero, 4, 0.2f);
+		//catAnimator->CreateAnimation(L"LeftMove", catTex, Vector2(0.0f, 96.0f), Vector2(32.0f, 32.0f), Vector2::Zero, 4, 0.2f);
+		//catAnimator->CreateAnimation(L"SitDown", catTex, Vector2(0.0f, 128.0f), Vector2(32.0f, 32.0f), Vector2::Zero, 4, 0.1f);
+		//catAnimator->CreateAnimation(L"Grooming", catTex, Vector2(0.0f, 160.0f), Vector2(32.0f, 32.0f), Vector2::Zero, 4, 0.1f);
+		//catAnimator->CreateAnimation(L"LayDown", catTex, Vector2(0.0f, 192.0f), Vector2(32.0f, 32.0f), Vector2::Zero, 4, 0.1f);  //lay down - 눕다
+		//catAnimator->CreateAnimation(L"WakeUp", catTex, Vector2(0.0f, 226.0f), Vector2(32.0f, 32.0f), Vector2::Zero, 4, 0.1f);
+		//catAnimator->PlayAnimation(L"SitDown", false);
+
+		//Transform* tr = GetOwner()->GetComponent<Transform>();
+
+		//cat->GetComponent<Transform>()->SetPosition(tr->GetPosition());
+		//cat->GetComponent<Transform>()->SetScale(Vector2(2.0f, 2.0f));
+
+		////마우스의 위치를 가지고 온다. 그래야 마우스의 방향에 맞게 총알이 해당 각도로 발사될 수 있다.
+		//Vector2 mousePos = Vector2::Zero;
+		//mousePos = Input::GetMousePosition();
+
+		//catSc->SetDest(mousePos);
 	}
 
 	PlayerScript::~PlayerScript()

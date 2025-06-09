@@ -79,6 +79,9 @@ namespace oep {
 				TransparentBlt(hdc, pos.x - (sprite.size.x / 2.0f) + sprite.offset.x, pos.y - (sprite.size.y / 2.0f) + sprite.offset.y
 					, sprite.size.x * scale.x, sprite.size.y * scale.y
 					, imgHdc, sprite.leftTop.x, sprite.leftTop.y, sprite.size.x, sprite.size.y, RGB(255, 0, 255));
+
+				//캐릭터의 위치를 보여주는 네모 도형
+				Rectangle(hdc, pos.x, pos.y, pos.x + 100, pos.y + 100);
 			}
 		}
 		else if (type == graphics::Texture::eTextureType::Png) {

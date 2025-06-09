@@ -30,6 +30,14 @@ namespace oep {
 		void LateUpdate() override;
 		void Render(HDC hdc) override;
 
+		void SetPlayer(class GameObject* player) {
+			mPlayer = player;
+		}
+
+		void SetDest(Vector2 dest) {
+			mDest = dest;
+		}
+
 		~CatScript();
 
 	private:
@@ -46,5 +54,10 @@ namespace oep {
 		float mTime;
 		eDirection mDirection;
 		float mDeathTime;  //오브젝트를 삭제시킬 시간을 측정하기 위한 변수
+
+		class GameObject* mPlayer;  //자신을 발사시킨 오브젝트의 정보를 알기 위해 받아놓는 변수
+
+		Vector2 mDest;  //마우스 클릭 시 마우스가 클릭한 좌표 정보
+		float mRadian;  //각도(라디안)
 	};
 }
