@@ -13,6 +13,8 @@
 #include "oepPlayerScript.h"
 #include "oepCat.h"
 #include "oepCatScript.h"
+#include "..\OwnEnginePractice_SOURCE\oepBoxCollider2D.h"
+#include "..\OwnEnginePractice_SOURCE\oepCollisionManager.h"
 
 namespace oep {
     PlayScene::PlayScene() : mPlayer(nullptr)
@@ -21,11 +23,17 @@ namespace oep {
 
     void PlayScene::Initialize()
     {
+        //이런 식으로 레이어 간 충돌 여부를 정함으로써 최대한 모든 충돌체의 충돌을 나누어서 사용하고자 한다.
+        CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::Animal, true);  
+
         GameObject* camera = object::Instantiate<GameObject>(enums::eLayerType::None, Vector2(336.0f, 423.0f));
         Camera* cameraComp = camera->AddComponent<Camera>();
         renderer::mainCamera = cameraComp;  //메인 카메라
 
         mPlayer = object::Instantiate<Player>(enums::eLayerType::Player);
+
+        BoxCollider2D *playerBoxCollider = mPlayer->AddComponent<BoxCollider2D>();
+        playerBoxCollider->SetOffset(Vector2(-50.0f, -50.0f));
 
         graphics::Texture* playerTex = Resources::Find<graphics::Texture>(L"Player");
         Animator* playerAnimator = mPlayer->AddComponent<Animator>();
@@ -43,38 +51,16 @@ namespace oep {
         tr->SetPosition(Vector2(300.0f, 250.0f));
         tr->SetRotation(0.0f);
 
-        //고양이 npc 추가
-        //Cat* cat= object::Instantiate<Cat>(enums::eLayerType::Animal);
-        //graphics::Texture* catTex = Resources::Find<graphics::Texture>(L"Cat");
+        Cat* cat = object::Instantiate<Cat>(enums::eLayerType::Animal);
         //CatScript* catSc = cat->AddComponent<CatScript>();
-        //Animator* catAnimator = cat->AddComponent<Animator>();
-
-        //모든 에니메이션을 가지고 만들어놓고 있어야 한다.
-        //catAnimator->CreateAnimation(L"DownMove", catTex, Vector2::Zero, Vector2(32.0f, 32.0f), Vector2::Zero, 4, 0.2f);
-        //catAnimator->CreateAnimation(L"RightMove", catTex, Vector2(0.0f, 32.0f), Vector2(32.0f, 32.0f), Vector2::Zero, 4, 0.2f);
-        //catAnimator->CreateAnimation(L"UpMove", catTex, Vector2(0.0f, 64.0f), Vector2(32.0f, 32.0f), Vector2::Zero, 4, 0.2f);
-        //catAnimator->CreateAnimation(L"LeftMove", catTex, Vector2(0.0f, 96.0f), Vector2(32.0f, 32.0f), Vector2::Zero, 4, 0.2f);
-        //catAnimator->CreateAnimation(L"SitDown", catTex, Vector2(0.0f, 128.0f), Vector2(32.0f, 32.0f), Vector2::Zero, 4, 0.1f);
-        //catAnimator->CreateAnimation(L"Grooming", catTex, Vector2(0.0f, 160.0f), Vector2(32.0f, 32.0f), Vector2::Zero, 4, 0.1f);
-        //catAnimator->CreateAnimation(L"LayDown", catTex, Vector2(0.0f, 192.0f), Vector2(32.0f, 32.0f), Vector2::Zero, 4, 0.1f);  //lay down - 눕다
-        //catAnimator->CreateAnimation(L"WakeUp", catTex, Vector2(0.0f, 226.0f), Vector2(32.0f, 32.0f), Vector2::Zero, 4, 0.1f);
-        //catAnimator->PlayAnimation(L"SitDown", false);
-
-        //catAnimator->CreateAnimationByFolder(L"MushroomIdle", L"..\\Resources\\Mushroom", Vector2::Zero, 0.1f);
-        //catAnimator->PlayAnimation(L"MushroomIdle");
-
-        //cat->GetComponent<Transform>()->SetPosition(Vector2(300.0f, 300.0f));
-
-        //GameObject* sheet = object::Instantiate<GameObject>(enums::eLayerType::Player);
-        //SpriteRenderer* sheetSR = sheet->AddComponent<SpriteRenderer>();
-
-        //graphics::Texture* mushroomTex = Resources::Find<graphics::Texture>(L"MushroomIdleImage");
-        //sheetSR->SetTexture(mushroomTex);
-
-        //Transform* tr1 = cat->GetComponent<Transform>();
-        //tr1->SetPosition(Vector2(200.0f, 200.0f));
-        //tr1->SetRotation(0.0f);
-        //tr1->SetScale(Vector2(2.0f, 2.0f));
+        graphics::Texture* catTex = Resources::Find<graphics::Texture>(L"Cat");
+        BoxCollider2D* catBoxCollider = cat->AddComponent<BoxCollider2D>();
+        catBoxCollider->SetOffset(Vector2(-50.0f, -50.0f));
+        Animator* catAnimator = cat->AddComponent<Animator>();
+        catAnimator->CreateAnimationByFolder(L"MushroomIdle", L"..\\Resources\\Mushroom", Vector2::Zero, 0.1f);
+        catAnimator->PlayAnimation(L"MushroomIdle");
+        cat->GetComponent<Transform>()->SetPosition(Vector2(200.0f, 200.0f));
+        cat->GetComponent<Transform>()->SetScale(Vector2(1.0f, 1.0f));
         
         Scene::Initialize();
     }

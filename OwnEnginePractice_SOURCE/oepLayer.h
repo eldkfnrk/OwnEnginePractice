@@ -18,6 +18,10 @@ namespace oep {
 
 		void AddGameObject(GameObject* gameObj);
 
+		const std::vector<GameObject*> GetGameObjects() {  //값이 변하지 않고 그대로 반환해야 하기 때문에 const 사용
+			return mGameObjects;
+		}
+
 		~Layer();
 
 	private:

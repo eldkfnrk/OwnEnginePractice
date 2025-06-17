@@ -24,8 +24,9 @@ namespace oep::enums {
 	enum class eComponentType {  //컴포넌트의 종류
 		//컴포넌트의 종류가 늘어나면 늘어난 만큼 추가(이때 추가할 위치는 실행 순서에 알맞게 배치)
 		Transform,
-		SpriteRenderer,
+		Collider,
 		Script,
+		SpriteRenderer,
 		Animator,
 		Camera,
 		End,

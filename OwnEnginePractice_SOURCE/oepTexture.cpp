@@ -24,11 +24,22 @@ namespace oep::graphics {
 		//이미지를 만들기 위한 비트맵과 DC 저장
 		//코드를 이용하여 직접 비트맵을 만들면 24비트짜리 비트맵을 생성(그러면 AlphaBlend 함수로는 출력이 안 되고 TransParentBlt 함수를 사용하여 출력하여야 한다.)
 		//위의 사항을 주의하지 않으면 애니메이션을 만들고 사용하지 못하는 경우가 발생할 수 있다.
-		image->mBitmap = CreateCompatibleBitmap(hdc, width, height);  //빈 비트맵 만들기(빈 비트맵을 만들 때도 DC가 필요하다.)
-		image->mHdc = CreateCompatibleDC(hdc);  //새 DC 만들기(DC를 만들 때는 기반이 되는 DC가 있어야 한다.)
+		image->mBitmap = CreateCompatibleBitmap(hdc, width, height);  
+		image->mHdc = CreateCompatibleDC(hdc);  
+
+		//애니메이션 생성 시 발생하는 흰색 배경을 투명하게 하는 작업(애니메이션을 만들 때 당연히 배경이 있으면 안 되기에 필요한 작업)
+		//비트맵 위에 애니메이션 이미지를 띄우는 것이기 때문에 애니메이션 이미지 뒤의 배경이 되는 비트맵을 투명하게 만들어주어야 한다.
+		HBRUSH transparentBrush = (HBRUSH)GetStockObject(NULL_BRUSH);
+		HBRUSH oldBrush = (HBRUSH)SelectObject(hdc, transparentBrush);
+
+		//이미지 크기보다 더 커야하지만 너무 크게 하면 안 되기 때문에 이렇게 크기를 설정
+		Rectangle(hdc, -1, -1, image->GetWidth() + 1, image->GetHeight() + 1);
 
 		//새로 만든 DC와 비트맵을 엮어주기 위한 작업(DC에 빈 비트맵 파일을 적용하고 DC가 만들어지면서 생성된 디폴트 비트맵은 메모리 해제를 시켜준다.)
 		HBITMAP oldBitmap = (HBITMAP)SelectObject(image->mHdc, image->mBitmap);
+
+		SelectObject(hdc, oldBrush);
+		
 		DeleteObject(oldBitmap);
 
 		image->SetTextureType(eTextureType::Bmp);

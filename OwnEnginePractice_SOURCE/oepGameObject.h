@@ -56,7 +56,7 @@ namespace oep {
 			return comp;
 		}
 
-		eState GetActive() {
+		eState GetState() {
 			return mState;
 		}
 
@@ -70,6 +70,9 @@ namespace oep {
 			}
 		}
 
+		bool IsActive() {
+			return mState == eState::Active;
+		}
 		//void Death() {  //오브젝트의 상태를 Dead로 바꾸는 함수
 		//	mState = eState::Dead;
 		//}

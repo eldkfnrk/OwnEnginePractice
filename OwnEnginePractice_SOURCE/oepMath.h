@@ -82,6 +82,14 @@ namespace oep::math {
 			y += other.y;
 		}
 
+		bool operator==(Vector2 other) {
+			if (x == other.x && y == other.y) {
+				return true;
+			}
+
+			return false;
+		}
+
 		float Length() {  //벡터의 길이
 			//sqrtf - 제곱근을 구하는 함수로 매개변수의 제곱근(루트)를 반환한다.(sqrt - double형, sqrtf - float형, sqrtl - long double형)
 			return sqrtf(x * x + y * y);

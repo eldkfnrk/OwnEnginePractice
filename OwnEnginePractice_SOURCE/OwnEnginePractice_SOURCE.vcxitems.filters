@@ -61,6 +61,16 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)oepAnimation.cpp">
       <Filter>Resource\Animation</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)oepCollider.cpp">
+      <Filter>Component\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)oepBoxCollider2D.cpp">
+      <Filter>Component\Collider\BoxCollider2D</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)oepCircleCollider2D.cpp">
+      <Filter>Component\Collider\CircleCollider2D</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)oepCollisionManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)oepComponent.h">
@@ -132,6 +142,16 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)oepAnimation.h">
       <Filter>Resource\Animation</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)oepCollider.h">
+      <Filter>Component\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)oepBoxCollider2D.h">
+      <Filter>Component\Collider\BoxCollider2D</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)oepCircleCollider2D.h">
+      <Filter>Component\Collider\CircleCollider2D</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)oepCollisionManager.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Component">
@@ -181,6 +201,15 @@
     </Filter>
     <Filter Include="Resource\Animation">
       <UniqueIdentifier>{5ffe3d3d-04fe-4f41-a3c6-b250068055a9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Collider">
+      <UniqueIdentifier>{d137f0a5-8bce-46a2-b15f-64383d265978}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Collider\CircleCollider2D">
+      <UniqueIdentifier>{373663a5-68d4-4b16-baff-8e3bf4b53e48}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Collider\BoxCollider2D">
+      <UniqueIdentifier>{509fac69-2eb6-456d-86d1-d2e40f5555d7}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

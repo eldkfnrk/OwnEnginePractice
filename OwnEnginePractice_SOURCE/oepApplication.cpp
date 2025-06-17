@@ -3,6 +3,7 @@
 #include "oepTime.h"
 #include "oepSceneManager.h"
 #include "oepResources.h"
+#include "oepCollisionManager.h"
 
 namespace oep {
 	Application::Application() : mHwnd(nullptr), mHdc(nullptr), mWidth(0), mHeight(0), mBackHdc(NULL), mBackBuffer(NULL) {
@@ -16,6 +17,7 @@ namespace oep {
 
 		initializeEtc();
 
+		CollisionManager::Initialize();
 		SceneManager::Initialize();
 	}
 
@@ -31,19 +33,21 @@ namespace oep {
 	void Application::Update() {
 		Time::Update();
 		Input::Update();
+		CollisionManager::Update();  //충돌 관련 업데이트, 렌더 등의 동작들은 적절한 위치에 넣어주지 않으면 원치 않는 동작이 진행되기 때문에 고려를 잘하고 진행해야 한다.
 		SceneManager::Update();
 	}
 
 	void Application::LateUpdate() {
+		CollisionManager::LateUpdate();
 		SceneManager::LateUpdate();
 	}
 
 	void Application::Render() { 
 		clearRenderTarget();
 
-		SceneManager::Render(mBackHdc);
-
 		Time::Render(mBackHdc);
+		CollisionManager::Render(mBackHdc);
+		SceneManager::Render(mBackHdc);
 
 		copyRenderTarger(mBackHdc, mHdc);
 	}
@@ -62,7 +66,15 @@ namespace oep {
 	}
 
 	void Application::clearRenderTarget() {
+		//도형들이 모두 흰색이라 구분이 안 되어 임시로 배경이 되는 도형의 색을 변경(회색으로 설정)
+		//그래픽스를 배울 때 보통 화면에 잘 보이게 하기 위해서 배경색은 회색이나 하늘색으로 많이 한다.
+		HBRUSH backGroundBrush = (HBRUSH)CreateSolidBrush(RGB(128, 128, 128));
+		HBRUSH oldBrush = (HBRUSH)SelectObject(mBackHdc, backGroundBrush);
+
 		Rectangle(mBackHdc, -1, -1, 1601, 901);   
+
+		SelectObject(mBackHdc, oldBrush);
+		DeleteObject(backGroundBrush);
 	}
 
 	void Application::copyRenderTarger(HDC source, HDC dest) {  

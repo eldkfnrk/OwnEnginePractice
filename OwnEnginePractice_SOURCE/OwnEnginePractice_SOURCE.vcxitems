@@ -15,9 +15,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)CommonInclude.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)oepCircleCollider2D.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)oepCollider.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)oepAnimation.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)oepAnimator.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)oepBoxCollider2D.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)oepCamera.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)oepCollisionManager.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)oepComponent.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)oepApplication.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)oepEntity.h" />
@@ -39,9 +43,13 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)oepTransform.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="$(MSBuildThisFileDirectory)oepCircleCollider2D.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)oepCollider.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)oepAnimation.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)oepAnimator.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)oepBoxCollider2D.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)oepCamera.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)oepCollisionManager.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)oepComponent.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)oepApplication.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)oepEntity.cpp" />
