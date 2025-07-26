@@ -31,4 +31,10 @@ namespace oep::enums {
 		Camera,
 		End,
 	};
+
+	enum class eColliderType {
+		Rect2D,
+		Circle2D,
+		End,
+	};
 }

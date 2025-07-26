@@ -25,6 +25,10 @@ namespace oep {
 		~Layer();
 
 	private:
+		void findDeadGameObjects(OUT std::vector<GameObject*>& gameObjs);
+		void deleteGameObjects(std::vector<GameObject*> deleteObjs);
+
+	private:
 		std::vector<GameObject*> mGameObjects;  //각 레이어에 배치된 게임 오브젝트들 저장하는 벡터
 	};
 

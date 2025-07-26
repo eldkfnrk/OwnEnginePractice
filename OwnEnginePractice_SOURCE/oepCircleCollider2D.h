@@ -15,6 +15,6 @@ namespace oep {
 		~CircleCollider2D();
 
 	private:
-		float radius;  //원형 충돌체의 반지름(충돌체 오브젝트의 좌표를 중심으로 반지름 크기의 원이 생성되어서 물리 충돌 처리를 할 예정)
+		float mRadius;  //원형 충돌체의 반지름(충돌체 오브젝트의 좌표를 중심으로 반지름 크기의 원이 생성되어서 물리 충돌 처리를 할 예정)
 	};
 }

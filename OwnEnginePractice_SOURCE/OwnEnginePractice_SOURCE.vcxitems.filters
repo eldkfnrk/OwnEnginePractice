@@ -71,6 +71,9 @@
       <Filter>Component\Collider\CircleCollider2D</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)oepCollisionManager.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)oepObject.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)oepComponent.h">

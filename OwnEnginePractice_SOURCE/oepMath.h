@@ -92,6 +92,7 @@ namespace oep::math {
 
 		float Length() {  //벡터의 길이
 			//sqrtf - 제곱근을 구하는 함수로 매개변수의 제곱근(루트)를 반환한다.(sqrt - double형, sqrtf - float형, sqrtl - long double형)
+			//삼각형의 빗변의 길이를 구할 떄 등의 경우에서 사용 가능
 			return sqrtf(x * x + y * y);
 		}
 

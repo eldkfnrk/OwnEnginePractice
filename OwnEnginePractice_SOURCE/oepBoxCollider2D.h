@@ -12,18 +12,9 @@ namespace oep {
 		void LateUpdate() override;
 		void Render(HDC hdc) override;
 
-		void SetSize(Vector2 size) {
-			mSize.x = size.x;
-			mSize.y = size.y;
-		}
-		
-		Vector2 GetSize() {
-			return mSize;
-		}
-
 		~BoxCollider2D();
 
 	private:
-		Vector2 mSize;  //네모형 충돌체의 크기
+
 	};
 }

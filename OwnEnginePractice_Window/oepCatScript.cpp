@@ -8,13 +8,14 @@
 
 namespace oep {
 	CatScript::CatScript() : mState(eState::SitDown), mAnimator(nullptr)
-		, mTime(0.0f), mDirection(eDirection::End), mDeathTime(0.0f), mDest(Vector2::Zero), mRadian(0.0f)
+		, mTime(0.0f), mDirection(eDirection::End), mDeathTime(0.0f), mPlayer(nullptr), mDest(Vector2::Zero), mRadian(0.0f)
 	{
 	}
 
 	void CatScript::Initialize()
 	{
 		mAnimator = GetOwner()->GetComponent<Animator>();
+		mPlayer = GetOwner();
 		
 	}
 
@@ -104,15 +105,15 @@ namespace oep {
 
 		//마우스 위치 방향으로 회전 후 마우스 위치 이동(내적 활용)
 		//지금까지는 마우스 위치 방향으로 총알(고양이)를 이동시키는 것은 했지만 그림은 그대로 출력되었는데 이제는 클릭한 벡터의 방향으로 회전시켜 출력되도록 한다는 의미
-		Transform* playerTr = mPlayer->GetComponent<Transform>();
-		Vector2 playerPosition = playerTr->GetPosition();
-		Vector2 dest = mDest - playerPosition;
-		dest = dest.Normalize();
+		//Transform* playerTr = mPlayer->GetComponent<Transform>();
+		//Vector2 playerPosition = playerTr->GetPosition();
+		//Vector2 dest = mDest - playerPosition;
+		//dest = dest.Normalize();
 
 		//이미지를 회전시키기 위해서는 회전각을 알아야 한다. 이때 기본 이미지는 오른쪽을 바라보는 것을 기준으로 한다.(즉, 기본 이미지는 오른쪽 벡터를 가지고 있는 것이다.)
 		//그러면 우리는 오른쪽으로 향하는 벡터와 마우스가 클릭한 위치를 향하는 벡터의 각을 구하면 되고 그 값은 내적을 활용하여 구할 수 있다.
-		float rotDegree = Vector2::Dot(dest, Vector2::Right);  //내적한 값은 cosθ 값이 된다.
-		rotDegree = acosf(rotDegree);  //acos은 아크 코사인이라는 뜻으로 cos의 역함수를 의미하고 이는 라디안 값을 반환한다.
+		//float rotDegree = Vector2::Dot(dest, Vector2::Right);  //내적한 값은 cosθ 값이 된다.
+		//rotDegree = acosf(rotDegree);  //acos은 아크 코사인이라는 뜻으로 cos의 역함수를 의미하고 이는 라디안 값을 반환한다.
 		
 		//그러나 이 값은 0~180도 밖에 확인하지 못하는데 그 이유는 우리는 좌표의 사분면을 기준으로 각도를 확인하지만 컴퓨터는 그렇지 않기 때문에 그렇다.
 		//그래서 이것은 직접 기준이 되는 물체를 (0,0)이라 생각하고 사분면을 나눠서 0~360도의 값을 가질 수 있도록 수정해주어야 한다.
@@ -121,19 +122,19 @@ namespace oep {
 		//0~360도의 값을 가질 수 있도록 추가 계산(플레이어를 (0,0)이라고 가정하고 계산)
 		//여기서 주의해야 할 점은 우리가 보는 좌표는 위가 +, 아래가 -이지만 컴퓨터 좌표 상으로는 위가 아래보다 크기 때문에 이에 맞춰서 위가 - 아래가 +여야 한다.
 		//이렇게 하여서야 그림을 벡터의 방향에 알맞게 회전시킬 수 있다.
-		if (mDest.y <= playerPosition.y) {  //제1, 2사분면인 경우
-			rotDegree = ConvertDegree(rotDegree);
-		}
-		else if (mDest.y > playerPosition.y) {  //제3, 4사분면인 경우
-			rotDegree = 360.0f - ConvertDegree(rotDegree);
-		}
+		//if (mDest.y <= playerPosition.y) {  //제1, 2사분면인 경우
+		//	rotDegree = ConvertDegree(rotDegree);
+		//}
+		//else if (mDest.y > playerPosition.y) {  //제3, 4사분면인 경우
+		//	rotDegree = 360.0f - ConvertDegree(rotDegree);
+		//}
 
 		//지금은 그냥 우리가 여기를 바라보고 있다고 정하였지만 상용 엔진인 유니티 등의 경우 물체가 기본적으로 자신이 바라보고 있는 방향 벡터를 가지고 있다.
 		//이것을 유니티에서는 forward 벡터라고 한다. 말 그대로 앞을 바라보고 있는 벡터라는 뜻이다.
 
-		position += dest * 100.0f * Time::DeltaTime();
+		//position += dest * 100.0f * Time::DeltaTime();
 
-		transform->SetPosition(position);
+		//transform->SetPosition(position);
 
 		//if (mTime > 1.5f) {
 		//	mState = eState::Move;

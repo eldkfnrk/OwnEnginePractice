@@ -21,10 +21,8 @@ namespace oep {
 				continue;
 			}
 
-			GameObject::eState state = gameObj->GetActive();
-
-			if (state == GameObject::eState::Paused || state == GameObject::eState::Dead) {
-				//오브젝트가 비활성화된 상태라면 건너뛰게 한다.
+			//오브젝트가 비활성화된 상태라면 건너뛰게 한다.
+			if (gameObj->IsActive() == false) {
 				continue;
 			}
 
@@ -38,10 +36,8 @@ namespace oep {
 				continue;
 			}
 
-			GameObject::eState state = gameObj->GetActive();
-
-			if (state == GameObject::eState::Paused || state == GameObject::eState::Dead) {
-				//오브젝트가 비활성화된 상태라면 건너뛰게 한다.
+			//오브젝트가 비활성화된 상태라면 건너뛰게 한다.
+			if (gameObj->IsActive() == false) {
 				continue;
 			}
 
@@ -56,10 +52,8 @@ namespace oep {
 				continue;
 			}
 
-			GameObject::eState state = gameObj->GetActive();
-
-			if (state == GameObject::eState::Paused || state == GameObject::eState::Dead) {
-				//오브젝트가 비활성화된 상태라면 건너뛰게 한다.
+			//오브젝트가 비활성화된 상태라면 건너뛰게 한다.
+			if (gameObj->IsActive() == false) {
 				continue;
 			}
 			
@@ -68,22 +62,9 @@ namespace oep {
 	}
 
 	void Layer::Destroy() {
-		for (GameObjectIter iter = mGameObjects.begin(); iter != mGameObjects.end(); ) {
-			GameObject::eState state = (*iter)->GetActive();  
-
-			if (state == GameObject::eState::Dead) {
-				GameObject* deathObj = (*iter);
-
-				iter = mGameObjects.erase(iter);  
-
-				delete deathObj;
-				deathObj = nullptr;
-
-				continue;  
-			}
-
-			iter++;  
-		}
+		std::vector<GameObject*> deleteObjects = {};
+		findDeadGameObjects(deleteObjects);
+		deleteGameObjects(deleteObjects);
 	}
 
 	void Layer::AddGameObject(GameObject* gameObj) {
@@ -101,6 +82,23 @@ namespace oep {
 			}
 			delete gameObj;
 			gameObj = nullptr;
+		}
+	}
+
+	void Layer::findDeadGameObjects(OUT std::vector<GameObject*>& gameObjs) {
+		for (GameObject* gameObj : mGameObjects) {
+			GameObject::eState active = gameObj->GetState();
+			
+			if (active == GameObject::eState::Dead) {
+				gameObjs.push_back(gameObj);
+			}
+		}
+	}
+
+	void Layer::deleteGameObjects(std::vector<GameObject*> deleteObjs) {
+		for (GameObject* obj : deleteObjs) {
+			delete obj;
+			obj = nullptr;
 		}
 	}
 }

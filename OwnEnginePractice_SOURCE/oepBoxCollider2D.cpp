@@ -1,10 +1,11 @@
 #include "oepBoxCollider2D.h"
 #include "oepTransform.h"
 #include "oepGameObject.h"
+#include "oepRenderer.h"
 
 namespace oep {
 	BoxCollider2D::BoxCollider2D() 
-		: Collider(), mSize(Vector2::Zero)
+		: Collider(enums::eColliderType::Rect2D)
 	{
 
 	}
@@ -24,8 +25,14 @@ namespace oep {
 	void BoxCollider2D::Render(HDC hdc) {
 		Transform* tr = GetOwner()->GetComponent<Transform>();
 		Vector2 pos = tr->GetPosition();
+
+		if(renderer::mainCamera) {
+			pos = renderer::mainCamera->CalculatePosition(pos);
+		}
 		
 		Vector2 offset = GetOffset();
+
+		Vector2 size = GetSize();
 
 		//Collider를 투명하게 설정
 		//많이 사용되는 색들은 StockObject에 미리 저장되어 있다. 그리고 투명 브러쉬는 NULL_BRUSH라는 이름으로 저장되어 있다.
@@ -41,12 +48,7 @@ namespace oep {
 		HPEN greenPen = CreatePen(PS_SOLID, 2, RGB(0, 255, 0));  //첫 번째 인자는 선의 스타일, 두 번째 인자는 선의 굵기(픽셀 단위), 세 번쨰 인자는 색
 		HPEN oldPen = (HPEN)SelectObject(hdc, greenPen);
 
-		if (mSize == Vector2::Zero) {
-			Rectangle(hdc, pos.x + offset.x, pos.y + offset.y, pos.x + offset.x + 100, pos.y + offset.y + 100);
-		}
-		else {
-			Rectangle(hdc, pos.x + offset.x, pos.y + offset.y, pos.x + offset.x + mSize.x, pos.y + offset.y + mSize.y);
-		}
+		Rectangle(hdc, pos.x + offset.x, pos.y + offset.y, pos.x + offset.x + 100 * size.x, pos.y + offset.y + 100 * size.y);
 
 		//브러쉬를 비롯한 dc관련 모든 오브젝트들은 사용한 이후에는 원상태로 돌린 후 메모리 삭제를 해주어야 한다.(안 그러면 잘못된 결과를 도출할 수도 있다.)
 		SelectObject(hdc, oldBrush);

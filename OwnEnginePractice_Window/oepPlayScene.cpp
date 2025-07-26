@@ -32,8 +32,8 @@ namespace oep {
 
         mPlayer = object::Instantiate<Player>(enums::eLayerType::Player);
 
-        BoxCollider2D *playerBoxCollider = mPlayer->AddComponent<BoxCollider2D>();
-        playerBoxCollider->SetOffset(Vector2(-50.0f, -50.0f));
+        CircleCollider2D*playerCollider = mPlayer->AddComponent<CircleCollider2D>();
+        playerCollider->SetOffset(Vector2(-50.0f, -50.0f));
 
         graphics::Texture* playerTex = Resources::Find<graphics::Texture>(L"Player");
         Animator* playerAnimator = mPlayer->AddComponent<Animator>();
@@ -48,14 +48,14 @@ namespace oep {
         playerAnimator->GetCompleteEvent(L"FrontGiveWater") = std::bind(&PlayerScript::AttackEffect, playerScript);  //해당 애니메이션의 컴플리트 이벤트 설정
         
         Transform* tr = mPlayer->GetComponent<Transform>();
-        tr->SetPosition(Vector2(300.0f, 250.0f));
+        tr->SetPosition(Vector2::Zero);
         tr->SetRotation(0.0f);
 
         Cat* cat = object::Instantiate<Cat>(enums::eLayerType::Animal);
-        //CatScript* catSc = cat->AddComponent<CatScript>();
+        CatScript* catSc = cat->AddComponent<CatScript>();
         graphics::Texture* catTex = Resources::Find<graphics::Texture>(L"Cat");
-        BoxCollider2D* catBoxCollider = cat->AddComponent<BoxCollider2D>();
-        catBoxCollider->SetOffset(Vector2(-50.0f, -50.0f));
+        BoxCollider2D* catCollider = cat->AddComponent<BoxCollider2D>();
+        catCollider->SetOffset(Vector2(-50.0f, -50.0f));
         Animator* catAnimator = cat->AddComponent<Animator>();
         catAnimator->CreateAnimationByFolder(L"MushroomIdle", L"..\\Resources\\Mushroom", Vector2::Zero, 0.1f);
         catAnimator->PlayAnimation(L"MushroomIdle");
@@ -85,13 +85,12 @@ namespace oep {
 
     void PlayScene::OnEnter()
     {
-        
+        Scene::OnEnter();
     }
 
     void PlayScene::OnExit()
     {
-        Transform* tr = mPlayer->GetComponent<Transform>();
-        tr->SetPosition(Vector2(0, 0));
+        Scene::OnExit();
     }
 
     PlayScene::~PlayScene()

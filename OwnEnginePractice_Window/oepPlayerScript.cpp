@@ -48,6 +48,22 @@ namespace oep {
 
 	void PlayerScript::Render(HDC hdc)
 	{
+
+	}
+
+	void PlayerScript::OnCollisionEnter(Collider* other)
+	{
+
+	}
+
+	void PlayerScript::OnCollisionStay(Collider* other)
+	{
+
+	}
+
+	void PlayerScript::OnCollisionExit(Collider* other)
+	{
+
 	}
 
 	void PlayerScript::idle()
@@ -87,23 +103,30 @@ namespace oep {
 			catSc->SetDest(mousePos);
 		}
 
+		Transform* tr = GetOwner()->GetComponent<Transform>();
+		Vector2 position = tr->GetPosition();
+
 		if (Input::GetKey(eKeyCode::Right)) {
 			mState = eState::Walk;
+			position.x += 100.0f * Time::DeltaTime();
 			mAnimator->PlayAnimation(L"RightWalk");
 		}
 		
 		if (Input::GetKey(eKeyCode::Left)) {
 			mState = eState::Walk;
+			position.x -= 100.0f * Time::DeltaTime();
 			mAnimator->PlayAnimation(L"LeftWalk");
 		}
 		
 		if (Input::GetKey(eKeyCode::Up)) {
 			mState = eState::Walk;
+			position.y -= 100.0f * Time::DeltaTime();
 			mAnimator->PlayAnimation(L"BackWalk");
 		}
 		
 		if (Input::GetKey(eKeyCode::Down)) {
 			mState = eState::Walk;
+			position.y += 100.0f * Time::DeltaTime();
 			mAnimator->PlayAnimation(L"FrontWalk");
 		}
 	}
@@ -113,26 +136,30 @@ namespace oep {
 		Transform* tr = GetOwner()->GetComponent<Transform>();
 		Vector2 position = tr->GetPosition();
 
-		//if (Input::GetKey(eKeyCode::Right)) {
-		//	position.x += 100.0f * Time::DeltaTime();
-		//}
+		if (Input::GetKey(eKeyCode::Right)) {
+			position.x += 100.0f * Time::DeltaTime();
+			mAnimator->PlayAnimation(L"RightWalk");
+		}
 
-		//else if (Input::GetKey(eKeyCode::Left)) {
-		//	position.x -= 100.0f * Time::DeltaTime();
-		//}
+		if (Input::GetKey(eKeyCode::Left)) {
+			position.x -= 100.0f * Time::DeltaTime();
+			mAnimator->PlayAnimation(L"LeftWalk");
+		}
 
-		//else if (Input::GetKey(eKeyCode::Up)) {
-		//	position.y -= 100.0f * Time::DeltaTime();
-		//}
+		if (Input::GetKey(eKeyCode::Up)) {
+			position.y -= 100.0f * Time::DeltaTime();
+			mAnimator->PlayAnimation(L"BackWalk");
+		}
 
-		//else if (Input::GetKey(eKeyCode::Down)) {
-		//	position.y += 100.0f * Time::DeltaTime();
-		//}
+		if (Input::GetKey(eKeyCode::Down)) {
+			position.y += 100.0f * Time::DeltaTime();
+			mAnimator->PlayAnimation(L"FrontWalk");
+		}
 
-		//if (Input::GetKeyUp(eKeyCode::Right) || Input::GetKeyUp(eKeyCode::Left) || Input::GetKeyUp(eKeyCode::Up) || Input::GetKeyUp(eKeyCode::Down)) {
-		//	mState = eState::Idle;
-		//	mAnimator->PlayAnimation(L"Idle", false);
-		//}
+		if (Input::GetKeyUp(eKeyCode::Right) || Input::GetKeyUp(eKeyCode::Left) || Input::GetKeyUp(eKeyCode::Up) || Input::GetKeyUp(eKeyCode::Down)) {
+			mState = eState::Idle;
+			mAnimator->PlayAnimation(L"Idle", false);
+		}
 
 		tr->SetPosition(position);
 	}
